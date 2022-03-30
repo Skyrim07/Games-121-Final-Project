@@ -13,10 +13,11 @@ public class BabaObject : MonoBehaviour
 
     private void Start()
     {
-
+        //myType = ObjectType.Obstacle;
     }
     private void Update()
     {
+        ObstacleUpdate();
         PlayerUpdate();
     }
     private void PlayerUpdate()
@@ -27,11 +28,27 @@ public class BabaObject : MonoBehaviour
         }
     }
 
+    private void ObstacleUpdate()
+    {
+        if (myType.Equals(ObjectType.Obstacle))
+        {
+            if (!myCol.enabled)
+            {
+                myCol.enabled = true;
+            }
+        }
+        else
+        {
+            if (myCol.enabled)
+            {
+                myCol.enabled = false;
+            }
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // OK so I'm not sure how exactly we're handling movement on the grid
         // Maybe we aren't using collisions, who knows
-        // I'm going to wait until we've nailed down the movement to start messing with these
 
         if (myType.Equals(ObjectType.Killer))
         {
