@@ -6,7 +6,7 @@ public class BabaObject : MonoBehaviour
 {
 
     //General
-    public ObjectType myType;
+    public List<ObjectType> myTypes;
 
     //Obstacle
     private Collider2D myCol;
@@ -22,7 +22,7 @@ public class BabaObject : MonoBehaviour
     }
     private void PlayerUpdate()
     {
-        if (myType.Equals(ObjectType.Player))
+        if (myTypes.Contains(ObjectType.Player))
         {
             // Input
         }
@@ -30,7 +30,7 @@ public class BabaObject : MonoBehaviour
 
     private void ObstacleUpdate()
     {
-        if (myType.Equals(ObjectType.Obstacle))
+        if (myTypes.Contains(ObjectType.Obstacle))
         {
             if (!myCol.enabled)
             {
@@ -50,21 +50,21 @@ public class BabaObject : MonoBehaviour
         // OK so I'm not sure how exactly we're handling movement on the grid
         // Maybe we aren't using collisions, who knows
 
-        if (myType.Equals(ObjectType.Killer))
+        if (myTypes.Contains(ObjectType.Killer))
         {
             if (collision.collider.gameObject.CompareTag("Player"))
             {
                 //Kill the player;
             }
         }
-        if (myType.Equals(ObjectType.Win))
+        if (myTypes.Contains(ObjectType.Win))
         {
             if (collision.collider.gameObject.CompareTag("Player"))
             {
                 // Next level
             }
         }
-        if (myType.Equals(ObjectType.Pushable))
+        if (myTypes.Contains(ObjectType.Pushable))
         {
             if (collision.collider.gameObject.CompareTag("Player"))
             {
@@ -82,5 +82,6 @@ public enum ObjectType
     Killer,
     Win,
     Pushable,
+    None,
 }
 
