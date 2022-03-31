@@ -62,6 +62,10 @@ public class LogicGrid : MonoBehaviour
     }
     public void Register(int index, GameObject obj)
     {
+        if (grid[index].obj != null)
+        {
+            Debug.LogError("Object Overlap on cell " + index);
+        }
         grid[index].obj = obj;
     }
     void BuildGrid()
