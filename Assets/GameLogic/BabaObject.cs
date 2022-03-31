@@ -10,21 +10,46 @@ public class BabaObject : MonoBehaviour
 
     //Obstacle
     private Collider2D myCol;
+    private SpriteRenderer ren;
 
     private void Start()
     {
-        //myType = ObjectType.Obstacle;
+        myCol = GetComponent<Collider2D>();
+        ren = GetComponent<SpriteRenderer>();
     }
     private void Update()
     {
         ObstacleUpdate();
         PlayerUpdate();
+        NoneUpdate();
     }
     private void PlayerUpdate()
     {
         if (myTypes.Contains(ObjectType.Player))
         {
-            // Input
+            // Matches Player Input
+        }
+    }   
+
+    private void NoneUpdate()
+    {
+        if (myTypes.Contains(ObjectType.None))
+        {
+            if (myCol.enabled)
+            {
+                myCol.enabled = false;
+            }
+            if (ren.enabled)
+            {
+                ren.enabled = false;
+            }
+        }
+        else
+        {
+            if (!ren.enabled)
+            {
+                ren.enabled = true;
+            }
         }
     }
 
