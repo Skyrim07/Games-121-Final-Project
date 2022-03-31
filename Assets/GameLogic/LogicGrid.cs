@@ -25,7 +25,7 @@ public class LogicGrid : MonoBehaviour
     // Just a visual queue, no functionality
     public GameObject marker;
 
-    void Start()
+    void Awake()
     {
         grid = new Point[gridLength * gridLength];
 
@@ -49,6 +49,14 @@ public class LogicGrid : MonoBehaviour
         {
             x = gridLength;
         }
+        if (x < 0)
+        {
+            x = 0;
+        }
+        if (y < 0)
+        {
+            y = 0;
+        }
 
         return (y * gridLength + x);
     }
@@ -67,6 +75,22 @@ public class LogicGrid : MonoBehaviour
                 Instantiate(marker, new Vector2(x * gridSpacing, y * gridSpacing) + gridOffset, transform.rotation, transform); 
                 grid[y * gridLength + x] = new Point(new Vector2(x * gridSpacing, y * gridSpacing) + gridOffset, null);
             }
+        }
+    }
+
+    public void RefreshLogic()
+    {
+        // I know, this sucks ass
+        GameObject[] nouns = GameObject.FindGameObjectsWithTag("Noun");
+        foreach(GameObject noun in nouns)
+        {
+            noun.GetComponent<NounBlock>().RefreshTypes();
+        }
+
+        GameObject[] ises = GameObject.FindGameObjectsWithTag("Is");
+        foreach (GameObject block in ises)
+        {
+            block.GetComponent<IsBlock>().CheckActive();
         }
     }
 }

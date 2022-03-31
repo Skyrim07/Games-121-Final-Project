@@ -2,18 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NounBlock: MonoBehaviour
+public class NounBlock: GridItem
 {
     public List<BabaObject> myBlock;
-    public LogicGrid gridMaster;
-    private int ourGridIndex;
-
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
-        ourGridIndex = gridMaster.NearestPoint(transform.position);
-        gridMaster.Register(ourGridIndex, this.gameObject);
-        transform.position = gridMaster.grid[ourGridIndex].pos;
+        isLogicBlock = true;
+        base.Start();
+    }
+
+    public void RefreshTypes()
+    {
+        foreach(BabaObject baba in myBlock)
+        {
+            baba.RefreshType();
+        }
     }
 }
+

@@ -2,20 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BabaObject : MonoBehaviour
+public class BabaObject : GridItem
 {
 
     //General
-    public List<ObjectType> myTypes;
+    public List<ObjectType> myTypes = new List<ObjectType>();
 
     //Obstacle
     private Collider2D myCol;
     private SpriteRenderer ren;
 
-    private void Start()
+    public override void Start()
     {
         myCol = GetComponent<Collider2D>();
         ren = GetComponent<SpriteRenderer>();
+        base.Start();
+
     }
     private void Update()
     {
@@ -23,11 +25,32 @@ public class BabaObject : MonoBehaviour
         PlayerUpdate();
         NoneUpdate();
     }
+    public void RefreshType()
+    {
+        myTypes.Clear();
+        myTypes.Add(ObjectType.None);
+    }
     private void PlayerUpdate()
     {
         if (myTypes.Contains(ObjectType.Player))
         {
             // Matches Player Input
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                MoveUp();
+            }
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                MoveLeft();
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                MoveDown();
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                MoveRight();
+            }
         }
     }   
 
@@ -41,7 +64,7 @@ public class BabaObject : MonoBehaviour
             }
             if (ren.enabled)
             {
-                ren.enabled = false;
+                //ren.enabled = false;
             }
         }
         else

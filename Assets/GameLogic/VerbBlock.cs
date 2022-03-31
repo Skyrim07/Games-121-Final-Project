@@ -2,19 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VerbBlock: MonoBehaviour
+public class VerbBlock: GridItem
 {
     public ObjectType myType;
-    public LogicGrid gridMaster;
-    private int ourGridIndex;
-
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
-        ourGridIndex = gridMaster.NearestPoint(transform.position);
-        gridMaster.Register(ourGridIndex, this.gameObject);
-        transform.position = gridMaster.grid[ourGridIndex].pos;
+        isLogicBlock = true;
+        base.Start();
     }
 }
 

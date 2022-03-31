@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Noun
   - Verb
+  - GridManager
+  - Is
   layers:
   - Default
   - TransparentFX
