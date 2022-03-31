@@ -24,6 +24,7 @@ public class BabaObject : GridItem
         ObstacleUpdate();
         PlayerUpdate();
         NoneUpdate();
+        PushUpdate();
     }
     public void RefreshType()
     {
@@ -37,19 +38,19 @@ public class BabaObject : GridItem
             // Matches Player Input
             if (Input.GetKeyDown(KeyCode.W))
             {
-                MoveUp();
+                MoveIndex(gridMaster.gridLength);
             }
             if (Input.GetKeyDown(KeyCode.A))
             {
-                MoveLeft();
+                MoveIndex(-1);
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
-                MoveDown();
+                MoveIndex(-gridMaster.gridLength);
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
-                MoveRight();
+                MoveIndex(1);
             }
         }
     }   
@@ -58,21 +59,17 @@ public class BabaObject : GridItem
     {
         if (myTypes.Contains(ObjectType.None))
         {
-            if (myCol.enabled)
-            {
-                myCol.enabled = false;
-            }
-            if (ren.enabled)
-            {
-                //ren.enabled = false;
-            }
+            pushable = false;
+            locked = false;
         }
-        else
+    }
+
+    private void PushUpdate()
+    {
+        if (myTypes.Contains(ObjectType.Pushable))
         {
-            if (!ren.enabled)
-            {
-                ren.enabled = true;
-            }
+            pushable = true;
+            locked = false;
         }
     }
 
@@ -80,18 +77,10 @@ public class BabaObject : GridItem
     {
         if (myTypes.Contains(ObjectType.Obstacle))
         {
-            if (!myCol.enabled)
-            {
-                myCol.enabled = true;
-            }
+            pushable = false;
+            locked = true;
         }
-        else
-        {
-            if (myCol.enabled)
-            {
-                myCol.enabled = false;
-            }
-        }
+
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

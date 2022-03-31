@@ -11,6 +11,7 @@ public class IsBlock : GridItem
     public override void Start()
     {
         isLogicBlock = true;
+        pushable = true;
         base.Start();
         CheckActive();
     }
