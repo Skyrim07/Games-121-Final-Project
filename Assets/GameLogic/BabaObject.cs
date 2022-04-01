@@ -31,19 +31,19 @@ public class BabaObject : GridItem
             // Matches Player Input
             if (Input.GetKeyDown(KeyCode.W))
             {
-                MoveIndex(gridMaster.gridLength);
+                MoveIndex(gridMaster.gridLength, true);
             }
             if (Input.GetKeyDown(KeyCode.A))
             {
-                MoveIndex(-1);
+                MoveIndex(-1, true);
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
-                MoveIndex(-gridMaster.gridLength);
+                MoveIndex(-gridMaster.gridLength, true);
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
-                MoveIndex(1);
+                MoveIndex(1, true);
             }
         }
     }   

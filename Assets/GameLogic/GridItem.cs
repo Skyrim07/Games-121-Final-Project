@@ -23,7 +23,11 @@ public class GridItem : MonoBehaviour
     }
     void DoMove(int moveIndex)
     {
-        gridMaster.grid[ourGridIndex].obj = null;
+        if (gridMaster.grid[ourGridIndex].obj == gameObject)
+        {
+            gridMaster.grid[ourGridIndex].obj = null;
+        }
+
         gridMaster.grid[ourGridIndex + moveIndex].obj = gameObject;
         ourGridIndex += moveIndex;
         transform.position = gridMaster.grid[ourGridIndex].pos;
@@ -33,7 +37,7 @@ public class GridItem : MonoBehaviour
             gridMaster.RefreshLogic();
         }
     }
-    public bool MoveIndex(int moveIndex)
+    public bool MoveIndex(int moveIndex, bool doIt)
     {
         if((ourGridIndex + moveIndex > 0) && (ourGridIndex + moveIndex < gridMaster.gridLength * gridMaster.gridLength))
         {
@@ -41,22 +45,49 @@ public class GridItem : MonoBehaviour
             {
                 if (gridMaster.grid[ourGridIndex + moveIndex].obj.GetComponent<GridItem>().pushable)
                 {
-                    if (gridMaster.grid[ourGridIndex + moveIndex].obj.GetComponent<GridItem>().MoveIndex(moveIndex))
+                    if (gridMaster.grid[ourGridIndex + moveIndex].obj.GetComponent<GridItem>().MoveIndex(moveIndex, doIt))
                     {
-                        DoMove(moveIndex);
+                        if (doIt)
+                        {
+                            DoMove(moveIndex);
+                        } 
                         return true;
                     }
                 }
                 else if(!gridMaster.grid[ourGridIndex + moveIndex].obj.GetComponent<GridItem>().locked)
                 {
-                    DoMove(moveIndex);
+                    if (doIt)
+                    {
+                        DoMove(moveIndex);
+                    }
                     return true;
                 }
+                else if (gridMaster.grid[ourGridIndex + moveIndex].obj.TryGetComponent<BabaObject>(out BabaObject baba))
+                {
+                    if (baba.myTypes.Contains(ObjectType.Player))
+                    {
+                        Debug.Log("running new code");
+                        if (baba.MoveIndex(moveIndex, false))
+                        {
+                            if (doIt)
+                            {
+                                DoMove(moveIndex);
+                            }
+                            return true;
+                        }
+                    }
+
+                }
+
             }
             else
             {
-                DoMove(moveIndex);
+                if (doIt)
+                {
+                    DoMove(moveIndex);
+                }
                 return true;
+
             }
         }
         return false;
