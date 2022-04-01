@@ -66,7 +66,6 @@ public class GridItem : MonoBehaviour
                 {
                     if (baba.myTypes.Contains(ObjectType.Player))
                     {
-                        Debug.Log("running new code");
                         if (baba.MoveIndex(moveIndex, false))
                         {
                             if (doIt)
