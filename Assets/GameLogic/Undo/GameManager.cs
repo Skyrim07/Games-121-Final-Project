@@ -12,11 +12,28 @@ public class GameManager : MonoBehaviour
         SaveGameState();
     }
 
-    void Update()
+    void LateUpdate()
     {
         if(Input.GetKeyDown(KeyCode.Z))
         {
             UndoMove();
+        }
+        // Matches Player Input
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            SaveGameState();
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            SaveGameState();
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            SaveGameState();
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            SaveGameState();
         }
     }
 
