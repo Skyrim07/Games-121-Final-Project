@@ -32,18 +32,22 @@ public class BabaObject : GridItem
             if (Input.GetKeyDown(KeyCode.W))
             {
                 MoveIndex(gridMaster.gridLength, true);
+                GameManager.SaveGameState();
             }
             if (Input.GetKeyDown(KeyCode.A))
             {
                 MoveIndex(-1, true);
+                GameManager.SaveGameState();
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
                 MoveIndex(-gridMaster.gridLength, true);
+                GameManager.SaveGameState();
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
                 MoveIndex(1, true);
+                GameManager.SaveGameState();
             }
         }
     }   
