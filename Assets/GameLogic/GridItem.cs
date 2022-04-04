@@ -22,6 +22,7 @@ public class GridItem : MonoBehaviour
         ourGridIndex = gridMaster.NearestPoint(transform.position);
         gridMaster.Register(ourGridIndex, gameObject);
         transform.position = gridMaster.grid[ourGridIndex].pos;
+        Save();
     }
     void LateUpdate()
     {
@@ -33,37 +34,61 @@ public class GridItem : MonoBehaviour
     public void Save()
     {
         indicies.Add(ourGridIndex);
-        Debug.Log("hello??" + indicies.Count);
     }
     public void Load()
     {
-        if(indicies.Count > 0)
+        if(indicies.Count > 1)
         {
-            Debug.Log("loading" + indicies.Count);
-            ourGridIndex = indicies[indicies.Count - 1];
-            indicies.RemoveAt(indicies.Count - 1);
+            ourGridIndex = indicies[indicies.Count - 2];
+            if(indicies.Count > 1)
+            {
+                if (!indicies[indicies.Count - 1].Equals(null))
+                {
+                    indicies.RemoveAt(indicies.Count - 1);
+                }
+            }
             transform.position = gridMaster.grid[ourGridIndex].pos;
             gridMaster.grid[ourGridIndex].obj = gameObject;
+
+            if (isLogicBlock)
+            {
+                gridMaster.RefreshLogic();
+            }
         }
+        
+
     }
     void DoMove(int moveIndex)
     {
-        if (gridMaster.grid[ourGridIndex].obj == gameObject)
+
+        if((ourGridIndex + moveIndex) > 0 && (ourGridIndex + moveIndex) < gridMaster.grid.Length)
         {
-            gridMaster.grid[ourGridIndex].obj = null;
+          
+            if(!gridMaster.grid[ourGridIndex + moveIndex].Equals(null))
+            {
+                if (gridMaster.grid[ourGridIndex].obj == gameObject)
+                {
+                    gridMaster.grid[ourGridIndex].obj = null;
+                }
+                gridMaster.grid[ourGridIndex + moveIndex].obj = gameObject;
+                ourGridIndex += moveIndex;
+                transform.position = gridMaster.grid[ourGridIndex].pos;
+
+                Save();
+
+                if (isLogicBlock)
+                {
+                    gridMaster.RefreshLogic();
+                }
+            }
+
+
         }
 
-        gridMaster.grid[ourGridIndex + moveIndex].obj = gameObject;
-        ourGridIndex += moveIndex;
-        transform.position = gridMaster.grid[ourGridIndex].pos;
 
-        if (isLogicBlock)
-        {
-            gridMaster.RefreshLogic();
-        }
 
-        Save();
     }
+
     public bool MoveIndex(int moveIndex, bool doIt)
     {
         if((ourGridIndex + moveIndex > 0) && (ourGridIndex + moveIndex < gridMaster.gridLength * gridMaster.gridLength))

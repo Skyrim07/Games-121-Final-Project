@@ -14,10 +14,28 @@ public class GameManager : MonoBehaviour
 
     void LateUpdate()
     {
+        /*
         if(Input.GetKeyDown(KeyCode.Z))
         {
             UndoMove();
         }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            SaveGameState();
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            SaveGameState();
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            SaveGameState();
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            SaveGameState();
+        }
+        */
     }
 
     public static void SaveGameState()
