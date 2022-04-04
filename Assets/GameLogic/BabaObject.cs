@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BabaObject : GridItem
 {
-
     //General
     public List<ObjectType> myTypes = new List<ObjectType>();
 
@@ -14,15 +13,22 @@ public class BabaObject : GridItem
     }
     private void Update()
     {
-        ObstacleUpdate();
         PlayerUpdate();
+    }
+
+    //Alex: Only need to update this when the type changes
+    private void UpdateTypeLogic()
+    {
+        ObstacleUpdate();
         NoneUpdate();
         PushUpdate();
     }
+
     public void RefreshType()
     {
         myTypes.Clear();
         myTypes.Add(ObjectType.None);
+        UpdateTypeLogic();
     }
     private void PlayerUpdate()
     {

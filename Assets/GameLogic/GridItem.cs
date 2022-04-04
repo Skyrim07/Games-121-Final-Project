@@ -43,9 +43,10 @@ public class GridItem : MonoBehaviour
         {
             if (gridMaster.grid[ourGridIndex + moveIndex].obj != null)
             {
-                if (gridMaster.grid[ourGridIndex + moveIndex].obj.GetComponent<GridItem>().pushable)
+                GridItem item = gridMaster.grid[ourGridIndex + moveIndex].obj.GetComponent<GridItem>();
+                if (item.pushable)
                 {
-                    if (gridMaster.grid[ourGridIndex + moveIndex].obj.GetComponent<GridItem>().MoveIndex(moveIndex, doIt))
+                    if (item.MoveIndex(moveIndex, doIt))
                     {
                         if (doIt)
                         {
@@ -54,7 +55,7 @@ public class GridItem : MonoBehaviour
                         return true;
                     }
                 }
-                else if(!gridMaster.grid[ourGridIndex + moveIndex].obj.GetComponent<GridItem>().locked)
+                else if(!item.locked)
                 {
                     if (doIt)
                     {
