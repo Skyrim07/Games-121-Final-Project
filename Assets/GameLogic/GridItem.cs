@@ -13,6 +13,8 @@ public class GridItem : MonoBehaviour
 
     [HideInInspector] public bool isLogicBlock;
 
+    public List<int> indicies = new List<int>();
+
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -20,6 +22,29 @@ public class GridItem : MonoBehaviour
         ourGridIndex = gridMaster.NearestPoint(transform.position);
         gridMaster.Register(ourGridIndex, gameObject);
         transform.position = gridMaster.grid[ourGridIndex].pos;
+    }
+    void LateUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Load();
+        }
+    }
+    public void Save()
+    {
+        indicies.Add(ourGridIndex);
+        Debug.Log("hello??" + indicies.Count);
+    }
+    public void Load()
+    {
+        if(indicies.Count > 0)
+        {
+            Debug.Log("loading" + indicies.Count);
+            ourGridIndex = indicies[indicies.Count - 1];
+            indicies.RemoveAt(indicies.Count - 1);
+            transform.position = gridMaster.grid[ourGridIndex].pos;
+            gridMaster.grid[ourGridIndex].obj = gameObject;
+        }
     }
     void DoMove(int moveIndex)
     {
@@ -36,6 +61,8 @@ public class GridItem : MonoBehaviour
         {
             gridMaster.RefreshLogic();
         }
+
+        Save();
     }
     public bool MoveIndex(int moveIndex, bool doIt)
     {

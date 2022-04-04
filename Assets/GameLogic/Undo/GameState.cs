@@ -7,6 +7,8 @@ using System;
 public class GameState {
     //saved data
     public Vector3 playerPos;
+
+    //public int playerIndex;
     public Sprite playerSprite;
     public List<Vector3> blockPositions;
 

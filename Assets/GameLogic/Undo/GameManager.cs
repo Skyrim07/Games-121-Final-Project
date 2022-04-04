@@ -18,23 +18,6 @@ public class GameManager : MonoBehaviour
         {
             UndoMove();
         }
-        // Matches Player Input
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            SaveGameState();
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            SaveGameState();
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            SaveGameState();
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            SaveGameState();
-        }
     }
 
     public static void SaveGameState()
@@ -53,5 +36,7 @@ public class GameManager : MonoBehaviour
             savedStates[savedStates.Count - 2].LoadGameState();
             savedStates.RemoveAt(savedStates.Count - 1);
         }
+        
     }
+
 }
