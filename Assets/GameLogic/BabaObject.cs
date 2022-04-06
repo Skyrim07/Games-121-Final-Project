@@ -19,15 +19,19 @@ public class BabaObject : GridItem
     //Alex: Only need to update this when the type changes
     private void UpdateTypeLogic()
     {
+        if(myTypes.Count == 0)
+        {
+            myTypes.Add(ObjectType.None);
+        }
         ObstacleUpdate();
         NoneUpdate();
         PushUpdate();
     }
 
-    public void RefreshType()
+    public void RefreshType(ObjectType ntype)
     {
         myTypes.Clear();
-        myTypes.Add(ObjectType.None);
+        myTypes.Add(ntype);
         UpdateTypeLogic();
     }
     private void PlayerUpdate()

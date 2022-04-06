@@ -57,7 +57,7 @@ public class GridItem : MonoBehaviour
             {
                 Moves.RemoveAt(Moves.Count - 1);
 
-                if (gridMaster.grid[ourGridIndex].obj == this.gameObject)
+                if (gridMaster.grid[ourGridIndex].obj.Equals(gameObject))
                 {
                     gridMaster.grid[ourGridIndex].obj = null;
                 }
@@ -85,7 +85,7 @@ public class GridItem : MonoBehaviour
         {
             if(!gridMaster.grid[ourGridIndex + moveIndex].Equals(null))
             {
-                if (gridMaster.grid[ourGridIndex].obj == gameObject)
+                if (gridMaster.grid[ourGridIndex].obj.Equals(gameObject))
                 {
                     gridMaster.grid[ourGridIndex].obj = null;
                 }
@@ -106,7 +106,7 @@ public class GridItem : MonoBehaviour
     public bool MoveIndex(int moveIndex, bool doIt, int depth)
     {
         ourGridIndex = gridMaster.NearestPoint(transform.position);
-        gridMaster.grid[ourGridIndex].obj = this.gameObject;
+        //gridMaster.grid[ourGridIndex].obj = gameObject;
 
         if(depth < 1)
         {

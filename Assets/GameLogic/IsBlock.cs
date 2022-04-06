@@ -32,14 +32,14 @@ public class IsBlock : GridItem
     {
         return noun.GetComponent<NounBlock>().myBlock;
     }
-    public GameObject CheckActive() //We could call this every time a LogicObject moves (noun, verb, is, and)
+    public void CheckActive() //We could call this every time a LogicObject moves (noun, verb, is, and)
     {
         logicActive = false; // Reset from previous call
         
         // Stay in bounds
         if(ourGridIndex < 1 || ourGridIndex >= gridMaster.gridLength * gridMaster.gridLength)
         {
-            return null;
+            return;
         }
 
         //If we have a noun above us or too our left, we're active
@@ -55,7 +55,7 @@ public class IsBlock : GridItem
                     if (right.CompareTag("Verb"))
                     {
                         logicActive = true;
-                        return ApplyLogic(left, right);
+                        ApplyLogic(left, right);
                     }
                 }
             }
@@ -78,7 +78,7 @@ public class IsBlock : GridItem
                         {
                            
                             logicActive = true;
-                            return ApplyLogic(up, down); 
+                            ApplyLogic(up, down); 
                         }
                     }
 
@@ -86,22 +86,13 @@ public class IsBlock : GridItem
             }
         }
         // If we didn't return, we didn't apply logic, so this code runs
-        return null;
     }
 
-    GameObject ApplyLogic(GameObject noun, GameObject verb)
+    void ApplyLogic(GameObject noun, GameObject verb)
     {
         foreach (BabaObject baba in OurNoun(noun)) //Iterates through every noun (wall, for instance)
         {
-            if (baba.myTypes.Count > 0)
-            {
-                //Clears the current property of that group of objects
-                baba.myTypes.Clear();
-            }
-
-            //Applies the new one
-            baba.myTypes.Add(OurVerb(verb));
-        }
-        return verb;
+            baba.RefreshType(OurVerb(verb)); //Only allows for one type per block currently
+        } 
     }
 }

@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
         }
         pmove = false;
     }
-    /*
+ 
 
     public static void SaveGameState()
     {
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    */
+
 
 
 
