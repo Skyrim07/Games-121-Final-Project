@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BabaObject : GridItem
 {
-
     //General
     public List<ObjectType> myTypes = new List<ObjectType>();
 
@@ -14,15 +13,26 @@ public class BabaObject : GridItem
     }
     private void Update()
     {
-        ObstacleUpdate();
         PlayerUpdate();
+    }
+
+    //Alex: Only need to update this when the type changes
+    private void UpdateTypeLogic()
+    {
+        if(myTypes.Count == 0)
+        {
+            myTypes.Add(ObjectType.None);
+        }
+        ObstacleUpdate();
         NoneUpdate();
         PushUpdate();
     }
-    public void RefreshType()
+
+    public void RefreshType(ObjectType ntype)
     {
         myTypes.Clear();
-        myTypes.Add(ObjectType.None);
+        myTypes.Add(ntype);
+        UpdateTypeLogic();
     }
     private void PlayerUpdate()
     {
@@ -31,20 +41,21 @@ public class BabaObject : GridItem
             // Matches Player Input
             if (Input.GetKeyDown(KeyCode.W))
             {
-                MoveIndex(gridMaster.gridLength, true);
+                MoveIndex(gridMaster.gridLength, true, 9);
             }
-            if (Input.GetKeyDown(KeyCode.A))
+            else if (Input.GetKeyDown(KeyCode.A))
             {
-                MoveIndex(-1, true);
+                MoveIndex(-1, true, 9);
             }
-            if (Input.GetKeyDown(KeyCode.S))
+            else if(Input.GetKeyDown(KeyCode.S))
             {
-                MoveIndex(-gridMaster.gridLength, true);
+                MoveIndex(-gridMaster.gridLength, true, 9);
             }
-            if (Input.GetKeyDown(KeyCode.D))
+            else if(Input.GetKeyDown(KeyCode.D))
             {
-                MoveIndex(1, true);
+                MoveIndex(1, true, 9);
             }
+            GameManager.SaveGameState();
         }
     }   
 

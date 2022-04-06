@@ -6,42 +6,38 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField]
     public static List<GameState> savedStates = new List<GameState>();
-
+    public int currentMove;
+    private bool consec = false;
+    public bool pmove = false;
     void Start()
     {
-        SaveGameState();
+        //SaveGameState();
     }
 
-    void LateUpdate()
+    void Update()
     {
-        /*
-        if(Input.GetKeyDown(KeyCode.Z))
+        if (pmove == true)
         {
-            UndoMove();
+            currentMove++;
         }
-        if (Input.GetKeyDown(KeyCode.W))
+
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            SaveGameState();
+            currentMove -= 1;
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        if (currentMove < 0)
         {
-            SaveGameState();
+            currentMove = 0;
         }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            SaveGameState();
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            SaveGameState();
-        }
-        */
+        pmove = false;
     }
+ 
 
     public static void SaveGameState()
     {
         savedStates.Add(GameState.GetCurrentState());
     }
+
 
     public static void UndoMove()
     {
@@ -54,7 +50,10 @@ public class GameManager : MonoBehaviour
             savedStates[savedStates.Count - 2].LoadGameState();
             savedStates.RemoveAt(savedStates.Count - 1);
         }
-        
+
     }
+
+
+
 
 }

@@ -84,7 +84,7 @@ public class LogicGrid : MonoBehaviour
 
     public void RefreshLogic()
     {
-        // I know, this sucks ass
+        // I know, this really sucks ass
         GameObject[] nouns = GameObject.FindGameObjectsWithTag("Noun");
         foreach(GameObject noun in nouns)
         {
@@ -96,5 +96,7 @@ public class LogicGrid : MonoBehaviour
         {
             block.GetComponent<IsBlock>().CheckActive();
         }
+
+
     }
 }

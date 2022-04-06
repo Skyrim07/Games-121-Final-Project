@@ -18,7 +18,7 @@ public class NounBlock: GridItem
     {
         foreach(BabaObject baba in myBlock)
         {
-            baba.RefreshType();
+            baba.RefreshType(ObjectType.None);
         }
     }
 }

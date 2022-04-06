@@ -54,8 +54,8 @@ public class IsBlock : GridItem
                 {
                     if (right.CompareTag("Verb"))
                     {
-                        ApplyLogic(left, right);
                         logicActive = true;
+                        ApplyLogic(left, right);
                     }
                 }
             }
@@ -76,8 +76,9 @@ public class IsBlock : GridItem
                     {
                         if (down.CompareTag("Verb"))
                         {
-                            ApplyLogic(up, down);
+                           
                             logicActive = true;
+                            ApplyLogic(up, down); 
                         }
                     }
 
@@ -85,21 +86,13 @@ public class IsBlock : GridItem
             }
         }
         // If we didn't return, we didn't apply logic, so this code runs
-
     }
 
     void ApplyLogic(GameObject noun, GameObject verb)
     {
         foreach (BabaObject baba in OurNoun(noun)) //Iterates through every noun (wall, for instance)
         {
-            if (baba.myTypes.Count > 0)
-            {
-                //Clears the current property of that group of objects
-                baba.myTypes.Clear();
-            }
-
-            //Applies the new one
-            baba.myTypes.Add(OurVerb(verb));
-        }
+            baba.RefreshType(OurVerb(verb)); //Only allows for one type per block currently
+        } 
     }
 }
