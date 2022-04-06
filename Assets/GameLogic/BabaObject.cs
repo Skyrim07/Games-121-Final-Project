@@ -37,19 +37,19 @@ public class BabaObject : GridItem
             // Matches Player Input
             if (Input.GetKeyDown(KeyCode.W))
             {
-                MoveIndex(gridMaster.gridLength, true);
+                MoveIndex(gridMaster.gridLength, true, 9);
             }
             else if (Input.GetKeyDown(KeyCode.A))
             {
-                MoveIndex(-1, true);
+                MoveIndex(-1, true, 9);
             }
             else if(Input.GetKeyDown(KeyCode.S))
             {
-                MoveIndex(-gridMaster.gridLength, true);
+                MoveIndex(-gridMaster.gridLength, true, 9);
             }
             else if(Input.GetKeyDown(KeyCode.D))
             {
-                MoveIndex(1, true);
+                MoveIndex(1, true, 9);
             }
             GameManager.SaveGameState();
         }

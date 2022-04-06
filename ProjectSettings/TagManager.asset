@@ -8,6 +8,7 @@ TagManager:
   - Verb
   - GridManager
   - Is
+  - GameManager
   layers:
   - Default
   - TransparentFX

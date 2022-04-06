@@ -32,14 +32,14 @@ public class IsBlock : GridItem
     {
         return noun.GetComponent<NounBlock>().myBlock;
     }
-    public void CheckActive() //We could call this every time a LogicObject moves (noun, verb, is, and)
+    public GameObject CheckActive() //We could call this every time a LogicObject moves (noun, verb, is, and)
     {
         logicActive = false; // Reset from previous call
         
         // Stay in bounds
         if(ourGridIndex < 1 || ourGridIndex >= gridMaster.gridLength * gridMaster.gridLength)
         {
-            return;
+            return null;
         }
 
         //If we have a noun above us or too our left, we're active
@@ -54,8 +54,8 @@ public class IsBlock : GridItem
                 {
                     if (right.CompareTag("Verb"))
                     {
-                        ApplyLogic(left, right);
                         logicActive = true;
+                        return ApplyLogic(left, right);
                     }
                 }
             }
@@ -76,8 +76,9 @@ public class IsBlock : GridItem
                     {
                         if (down.CompareTag("Verb"))
                         {
-                            ApplyLogic(up, down);
+                           
                             logicActive = true;
+                            return ApplyLogic(up, down); 
                         }
                     }
 
@@ -85,10 +86,10 @@ public class IsBlock : GridItem
             }
         }
         // If we didn't return, we didn't apply logic, so this code runs
-
+        return null;
     }
 
-    void ApplyLogic(GameObject noun, GameObject verb)
+    GameObject ApplyLogic(GameObject noun, GameObject verb)
     {
         foreach (BabaObject baba in OurNoun(noun)) //Iterates through every noun (wall, for instance)
         {
@@ -101,5 +102,6 @@ public class IsBlock : GridItem
             //Applies the new one
             baba.myTypes.Add(OurVerb(verb));
         }
+        return verb;
     }
 }
