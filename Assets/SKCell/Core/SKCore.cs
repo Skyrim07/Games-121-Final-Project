@@ -153,13 +153,6 @@ namespace SKCell
             OnSceneLoaded000();
             OnSceneLoaded100();
         }
-#if !UNITY_EDITOR
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            CommonUtils.EditorLogError("SKCore Destroyed!!!");
-        }
-#endif
 
         #endregion
         private static void EmptyAction() { }
