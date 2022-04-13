@@ -126,6 +126,11 @@ public class GridItem : MonoBehaviour
                             if (doIt)
                             {
                                 DoMove(moveIndex);
+                                GoalBlock goal = gridItem.GetComponent<GoalBlock>();
+                                if (goal)
+                                {
+                                    print("Win");
+                                }
                             }
                             return true;
                         }
