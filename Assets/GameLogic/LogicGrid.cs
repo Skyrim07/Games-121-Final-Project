@@ -7,11 +7,12 @@ public struct Point
 {
     public Vector2 pos;
     public GameObject obj;
-    
-    public Point(Vector2 location, GameObject gobj)
+    public List<GameObject> localObjects;
+    public Point(Vector2 location, GameObject gobj, List<GameObject> newlist)
     {
         pos = location;
         obj = gobj;
+        localObjects = newlist;
     }
 }
 public class LogicGrid : MonoBehaviour
@@ -62,10 +63,7 @@ public class LogicGrid : MonoBehaviour
     }
     public void Register(int index, GameObject obj)
     {
-        if (grid[index].obj != null)
-        {
-            Debug.LogError("Object Overlap on cell " + index);
-        }
+        grid[index].localObjects.Add(obj);
         grid[index].obj = obj;
     }
     void BuildGrid()
@@ -77,7 +75,7 @@ public class LogicGrid : MonoBehaviour
             for(int x = 0; x < gridLength; x++)
             {
                 Instantiate(marker, new Vector2(x * gridSpacing, y * gridSpacing) + gridOffset, transform.rotation, transform); 
-                grid[y * gridLength + x] = new Point(new Vector2(x * gridSpacing, y * gridSpacing) + gridOffset, null);
+                grid[y * gridLength + x] = new Point(new Vector2(x * gridSpacing, y * gridSpacing) + gridOffset, null, new List<GameObject>());
             }
         }
     }

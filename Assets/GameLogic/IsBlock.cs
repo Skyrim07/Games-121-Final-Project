@@ -43,9 +43,26 @@ public class IsBlock : GridItem
         }
 
         //If we have a noun above us or too our left, we're active
-        GameObject left = gridMaster.grid[ourGridIndex - 1].obj;
-        GameObject right = gridMaster.grid[ourGridIndex + 1].obj;
+        GameObject left = null;
+        GameObject right = null;
 
+        if (gridMaster.grid[ourGridIndex - 1].localObjects.Count > 0)
+        {
+            left = gridMaster.grid[ourGridIndex - 1].localObjects[0];
+            if (!left.GetComponent<GridItem>().isLogicBlock && gridMaster.grid[ourGridIndex - 1].localObjects.Count > 1)
+            {
+                left = gridMaster.grid[ourGridIndex - 1].localObjects[1];
+            }
+        }
+        if(gridMaster.grid[ourGridIndex + 1].localObjects.Count > 0)
+        {
+            right = gridMaster.grid[ourGridIndex + 1].localObjects[0];
+            if (!right.GetComponent<GridItem>().isLogicBlock && gridMaster.grid[ourGridIndex + 1].localObjects.Count > 1)
+            {
+                right = gridMaster.grid[ourGridIndex + 1].localObjects[1];
+            }
+        }
+        
         if (left != null)
         {
             if (left.CompareTag("Noun"))
@@ -65,8 +82,30 @@ public class IsBlock : GridItem
         //Check to make sure we're not at the end of the array
         if((ourGridIndex < (gridMaster.gridLength * gridMaster.gridLength) - gridMaster.gridLength) && ourGridIndex > gridMaster.gridLength)
         {
-            GameObject up = gridMaster.grid[ourGridIndex + gridMaster.gridLength].obj;
-            GameObject down = gridMaster.grid[ourGridIndex - gridMaster.gridLength].obj;
+
+
+            GameObject up = null;
+            GameObject down = null;
+
+            if (gridMaster.grid[ourGridIndex + gridMaster.gridLength].localObjects.Count > 0)
+            {
+                up = gridMaster.grid[ourGridIndex + gridMaster.gridLength].localObjects[0];
+                if (!up.GetComponent<GridItem>().isLogicBlock && gridMaster.grid[ourGridIndex + gridMaster.gridLength].localObjects.Count > 1)
+                {
+                    up = gridMaster.grid[ourGridIndex + gridMaster.gridLength].localObjects[1];
+                }
+            }
+            if (gridMaster.grid[ourGridIndex - gridMaster.gridLength].localObjects.Count > 0)
+            {
+                down = gridMaster.grid[ourGridIndex - gridMaster.gridLength].localObjects[0];
+                if (!down.GetComponent<GridItem>().isLogicBlock && gridMaster.grid[ourGridIndex - gridMaster.gridLength].localObjects.Count > 1)
+                {
+                    down = gridMaster.grid[ourGridIndex - gridMaster.gridLength].localObjects[1];
+                }
+            }
+
+            //GameObject up = gridMaster.grid[ourGridIndex + gridMaster.gridLength].obj;
+            //GameObject down = gridMaster.grid[ourGridIndex - gridMaster.gridLength].obj;
 
             if (up != null)
             {

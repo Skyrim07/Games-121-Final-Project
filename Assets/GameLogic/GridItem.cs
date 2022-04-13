@@ -57,15 +57,15 @@ public class GridItem : MonoBehaviour
             {
                 Moves.RemoveAt(Moves.Count - 1);
 
-                if (gridMaster.grid[ourGridIndex].obj!= null && gridMaster.grid[ourGridIndex].obj.Equals(gameObject))
+                if (gridMaster.grid[ourGridIndex].localObjects.Contains(gameObject))
                 {
-                    gridMaster.grid[ourGridIndex].obj = null;
+                    gridMaster.grid[ourGridIndex].localObjects.Remove(gameObject);
                 }
               
                 ourGridIndex = Moves[Moves.Count - 1].index;
 
                 transform.position = gridMaster.grid[ourGridIndex].pos;
-                gridMaster.grid[ourGridIndex].obj = gameObject;
+                gridMaster.grid[ourGridIndex].localObjects.Add(gameObject);
 
                 if (isLogicBlock)
                 {
@@ -80,16 +80,16 @@ public class GridItem : MonoBehaviour
     void DoMove(int moveIndex)
     {
         gamemanager.pmove = true;
-
-        if((ourGridIndex + moveIndex) > 0 && (ourGridIndex + moveIndex) < gridMaster.grid.Length)
+        ourGridIndex = gridMaster.NearestPoint(transform.position);
+        if ((ourGridIndex + moveIndex) > 0 && (ourGridIndex + moveIndex) < gridMaster.grid.Length)
         {
             if(!gridMaster.grid[ourGridIndex + moveIndex].Equals(null))
             {
-                if (gridMaster.grid[ourGridIndex].obj!=null && gridMaster.grid[ourGridIndex].obj.Equals(gameObject))
+                if (gridMaster.grid[ourGridIndex].localObjects.Contains(gameObject))
                 {
-                    gridMaster.grid[ourGridIndex].obj = null;
+                    gridMaster.grid[ourGridIndex].localObjects.Remove(gameObject);
                 }
-                gridMaster.grid[ourGridIndex + moveIndex].obj = gameObject;
+                gridMaster.grid[ourGridIndex + moveIndex].localObjects.Add(gameObject);
                 ourGridIndex += moveIndex;
                 transform.position = gridMaster.grid[ourGridIndex].pos;
 
@@ -102,6 +102,7 @@ public class GridItem : MonoBehaviour
             }
         }
     }
+
 
     public bool MoveIndex(int moveIndex, bool doIt, int depth)
     {
@@ -116,53 +117,60 @@ public class GridItem : MonoBehaviour
         {
             if ((ourGridIndex + moveIndex > 0) && (ourGridIndex + moveIndex < gridMaster.gridLength * gridMaster.gridLength))
             {
-                if (gridMaster.grid[ourGridIndex + moveIndex].obj != null)
+                if (gridMaster.grid[ourGridIndex + moveIndex].localObjects.Count > 0)
                 {
-                    GridItem gridItem = gridMaster.grid[ourGridIndex + moveIndex].obj.GetComponent<GridItem>();
-                    if (gridItem.pushable)
+                    List<GridItem> move = new List<GridItem>();
+                    foreach(GameObject obj in gridMaster.grid[ourGridIndex + moveIndex].localObjects)
                     {
-                        if (gridItem.MoveIndex(moveIndex, doIt, depth - 1))
+                        if (obj.GetComponent<GridItem>().locked)
                         {
+                            return false;
+                        }
+                        if (obj.GetComponent<GridItem>().pushable)
+                        {
+                            move.Add(obj.GetComponent<GridItem>());
+                        }
+                        else if (obj.GetComponent<GridItem>().TryGetComponent<BabaObject>(out BabaObject babao))
+                        {
+                            if (babao.myTypes.Contains(ObjectType.Player))
+                            {
+                                if (obj.GetComponent<GridItem>().MoveIndex(moveIndex, false, depth - 1))
+                                {
+                                    // Not sure if we need to do something here
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+ 
+                        }
+                    }
+                    if (move.Count > 0)
+                    {
+                        if (move[0].MoveIndex(moveIndex, doIt, depth - 1))
+                        {
+                            foreach (GridItem item in move)
+                            {
+                                if (!item.Equals(move[0]) && doIt)
+                                {
+                                    item.DoMove(moveIndex);
+                                }
+                            }
                             if (doIt)
                             {
                                 DoMove(moveIndex);
-                                GoalBlock goal = gridItem.GetComponent<GoalBlock>();
-                                if (goal)
-                                {
-                                    print("Win");
-                                }
                             }
                             return true;
                         }
                     }
-                    else if (!gridItem.locked)
+                    else
                     {
                         if (doIt)
                         {
                             DoMove(moveIndex);
                         }
                         return true;
-                    }
-                    else if (gridMaster.grid[ourGridIndex + moveIndex].obj.TryGetComponent<BabaObject>(out BabaObject baba))
-                    {
-                        if (baba.Equals(this))
-                        {
-                            Debug.Log("baba is me");
-                            gridMaster.grid[ourGridIndex + moveIndex].obj = null;
-                            return true;
-                        }
-                        if (baba.myTypes.Contains(ObjectType.Player))
-                        {
-                            if (baba.MoveIndex(moveIndex, false, depth - 1))
-                            {
-                                if (doIt)
-                                {
-                                    DoMove(moveIndex);
-                                }
-                                return true;
-                            }
-                        }
-
                     }
 
                 }

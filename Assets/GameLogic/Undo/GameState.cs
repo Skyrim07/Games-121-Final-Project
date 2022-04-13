@@ -7,6 +7,8 @@ using System;
 public class GameState {
     //saved data
     public Vector3 playerPos;
+
+    public int playerIndex;
     public Sprite playerSprite;
     public List<Vector3> blockPositions;
 
@@ -17,14 +19,19 @@ public class GameState {
         gameStateToSave.blockPositions = new List<Vector3>();
         foreach(SavedElement element in elementsToSaveOnScene)
         {
-            if(element.type == SavedElement.Type.Player)
+            gameStateToSave.playerIndex = element.GetComponent<GridItem>().ourGridIndex;
+            gameStateToSave.playerPos = element.transform.position;
+            /*
+            if (element.type == SavedElement.Type.Player)
             {
-                gameStateToSave.playerPos = element.transform.position;
+               
+              
                 gameStateToSave.playerSprite = element.transform.GetComponent<SpriteRenderer>().sprite;
             } else if(element.type == SavedElement.Type.Block)
             {
                 gameStateToSave.blockPositions.Add(element.transform.position);
             }
+            */
         }
         return gameStateToSave; 
     }
@@ -35,9 +42,13 @@ public class GameState {
         List<Vector3> remainingBlockPosition = new List<Vector3>(blockPositions);
         foreach(SavedElement elementToLoad in elementsToLoadOnScene)
         {
+            elementToLoad.GetComponent<GridItem>().ourGridIndex = playerIndex;
+            elementToLoad.transform.position = playerPos;
+
+            /*
             if(elementToLoad.type == SavedElement.Type.Player)
             {
-                elementToLoad.transform.position = playerPos;
+            
                 elementToLoad.GetComponent<SpriteRenderer>().sprite = playerSprite;
                 //elementToLoad.GetComponent<BabaObject>().UndoSpriteIndex();
             }
@@ -46,6 +57,7 @@ public class GameState {
                 elementToLoad.transform.position = remainingBlockPosition[0];
                 remainingBlockPosition.RemoveAt(0);
             }
+            */
         }
     }
 
