@@ -57,7 +57,7 @@ public class GridItem : MonoBehaviour
             {
                 Moves.RemoveAt(Moves.Count - 1);
 
-                if (gridMaster.grid[ourGridIndex].obj.Equals(gameObject))
+                if (gridMaster.grid[ourGridIndex].obj!= null && gridMaster.grid[ourGridIndex].obj.Equals(gameObject))
                 {
                     gridMaster.grid[ourGridIndex].obj = null;
                 }
@@ -85,7 +85,7 @@ public class GridItem : MonoBehaviour
         {
             if(!gridMaster.grid[ourGridIndex + moveIndex].Equals(null))
             {
-                if (gridMaster.grid[ourGridIndex].obj.Equals(gameObject))
+                if (gridMaster.grid[ourGridIndex].obj!=null && gridMaster.grid[ourGridIndex].obj.Equals(gameObject))
                 {
                     gridMaster.grid[ourGridIndex].obj = null;
                 }
@@ -118,18 +118,24 @@ public class GridItem : MonoBehaviour
             {
                 if (gridMaster.grid[ourGridIndex + moveIndex].obj != null)
                 {
-                    if (gridMaster.grid[ourGridIndex + moveIndex].obj.GetComponent<GridItem>().pushable)
+                    GridItem gridItem = gridMaster.grid[ourGridIndex + moveIndex].obj.GetComponent<GridItem>();
+                    if (gridItem.pushable)
                     {
-                        if (gridMaster.grid[ourGridIndex + moveIndex].obj.GetComponent<GridItem>().MoveIndex(moveIndex, doIt, depth - 1))
+                        if (gridItem.MoveIndex(moveIndex, doIt, depth - 1))
                         {
                             if (doIt)
                             {
                                 DoMove(moveIndex);
+                                GoalBlock goal = gridItem.GetComponent<GoalBlock>();
+                                if (goal)
+                                {
+                                    print("Win");
+                                }
                             }
                             return true;
                         }
                     }
-                    else if (!gridMaster.grid[ourGridIndex + moveIndex].obj.GetComponent<GridItem>().locked)
+                    else if (!gridItem.locked)
                     {
                         if (doIt)
                         {

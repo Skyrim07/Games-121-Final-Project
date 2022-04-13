@@ -684,7 +684,6 @@ namespace SKCell
             asset.cellValues_se = CommonUtils.Serialize2DArray(grid.cellValues);
             asset.cellCosts_se = CommonUtils.Serialize2DArray(grid.pf_CellCost);
             asset.cellOccupied_se = CommonUtils.Serialize2DArray(grid.occupied);
-            EditorUtility.SetDirty(asset);
         }
 
 
@@ -707,12 +706,6 @@ namespace SKCell
             grid.cellValues = CommonUtils.Deserialize2DArray(asset.cellValues_se, grid.width,grid.height);
             grid.pf_CellCost = CommonUtils.Deserialize2DArray(asset.cellCosts_se, grid.width,grid.height);
             grid.occupied = CommonUtils.Deserialize2DArray(asset.cellOccupied_se, grid.width,grid.height);
-
-            if(!Application.isPlaying && generateStructure)
-            CommonUtils.InvokeActionEditor(0.1f, () =>{
-                if(!Application.isPlaying)
-                GenerateStructure(false);
-            });
         }
 
         #endregion

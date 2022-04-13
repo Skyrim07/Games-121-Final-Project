@@ -26,6 +26,7 @@ public class BabaObject : GridItem
         ObstacleUpdate();
         NoneUpdate();
         PushUpdate();
+        WinUpdate();
     }
 
     public void RefreshType(ObjectType ntype)
@@ -73,6 +74,15 @@ public class BabaObject : GridItem
         if (myTypes.Contains(ObjectType.Pushable))
         {
             pushable = true;
+            locked = false;
+        }
+    }
+
+    private void WinUpdate()
+    {
+        if (myTypes.Contains(ObjectType.Win))
+        {
+            pushable = false;
             locked = false;
         }
     }
