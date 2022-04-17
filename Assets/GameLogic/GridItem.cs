@@ -85,6 +85,26 @@ public class GridItem : MonoBehaviour
         {
             if(!gridMaster.grid[ourGridIndex + moveIndex].Equals(null))
             {
+                foreach (var item in gridMaster.grid[ourGridIndex].localObjects)
+                {
+                    if (item.TryGetComponent<BabaObject>(out BabaObject bbj))
+                    {
+                        if (bbj.myTypes.Contains(ObjectType.Player))
+                        {
+                            print("Player move");
+                            foreach (var item2 in gridMaster.grid[ourGridIndex + moveIndex].localObjects)
+                            {
+                                if (item2.TryGetComponent<BabaObject>(out BabaObject bbj2))
+                                {
+                                    if (bbj2.myTypes.Contains(ObjectType.Win))
+                                    {
+                                        print("Win!");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
                 if (gridMaster.grid[ourGridIndex].localObjects.Contains(gameObject))
                 {
                     gridMaster.grid[ourGridIndex].localObjects.Remove(gameObject);
