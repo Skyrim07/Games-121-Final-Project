@@ -3,7 +3,15 @@ guid: 4285ca5f257226448809bc959b6c6fea
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - gridMaster: {instanceID: 0}
+  - gamemanager: {instanceID: 0}
+  - myren: {instanceID: 0}
+  - Baba: {fileID: -7650119137935736425, guid: d7ac3ec50c56f448382234f922804709, type: 3}
+  - Rock: {fileID: 120768646595506803, guid: d7ac3ec50c56f448382234f922804709, type: 3}
+  - Wall: {fileID: -8690745780984340782, guid: d7ac3ec50c56f448382234f922804709, type: 3}
+  - Flag: {fileID: 8103823714585543130, guid: d7ac3ec50c56f448382234f922804709, type: 3}
+  - Death: {fileID: -4988549499824764027, guid: d7ac3ec50c56f448382234f922804709, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

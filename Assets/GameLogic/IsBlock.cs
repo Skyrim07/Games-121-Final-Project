@@ -16,8 +16,9 @@ public class IsBlock : GridItem
         CheckActive();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
+        base.LateUpdate();
         CheckActive();
     }
 
@@ -74,6 +75,11 @@ public class IsBlock : GridItem
                         logicActive = true;
                         ApplyLogic(left, right);
                     }
+                    if (right.CompareTag("Noun"))
+                    {
+                        logicActive = true;
+                        ApplyNoun2Noun(left, right);
+                    }
                 }
             }
         }
@@ -119,6 +125,12 @@ public class IsBlock : GridItem
                             logicActive = true;
                             ApplyLogic(up, down); 
                         }
+                        if (down.CompareTag("Noun"))
+                        {
+
+                            logicActive = true;
+                            ApplyNoun2Noun(up, down);
+                        }
                     }
 
                 }
@@ -133,5 +145,12 @@ public class IsBlock : GridItem
         {
             baba.RefreshType(OurVerb(verb)); //Only allows for one type per block currently
         } 
+    }
+    void ApplyNoun2Noun(GameObject n1, GameObject n2)
+    {
+        foreach(BabaObject baba in OurNoun(n1))
+        {
+            baba.AssignAppearance(OurNoun(n2)[0].defaultType);
+        }
     }
 }
