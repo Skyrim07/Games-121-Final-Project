@@ -79,11 +79,23 @@ public class GridItem : MonoBehaviour
         
 
     }
+
     private IEnumerator WaitRefresh()
     {
         yield return new WaitForEndOfFrame();
         gridMaster.RefreshLogic();
         yield break;
+    }
+
+
+    public void Die()
+    {
+        gamemanager.currentMove = 0;
+        Move firstMove = Moves[0];
+        Moves.Clear();
+        Moves.Add(firstMove);
+        Moves.Add(firstMove);
+        Load();
     }
 
     void DoMove(int moveIndex)
@@ -94,6 +106,40 @@ public class GridItem : MonoBehaviour
         {
             if(!gridMaster.grid[ourGridIndex + moveIndex].Equals(null))
             {
+                foreach (var item in gridMaster.grid[ourGridIndex].localObjects)
+                {
+                    if (item.TryGetComponent<BabaObject>(out BabaObject bbj))
+                    {
+                        if (bbj.myTypes.Contains(ObjectType.Player))
+                        {
+                      
+                            foreach (var item2 in gridMaster.grid[ourGridIndex + moveIndex].localObjects)
+                            {
+                                if (item2.TryGetComponent<BabaObject>(out BabaObject bbj2))
+                                {
+                                    if (bbj2.myTypes.Contains(ObjectType.Killer))
+                                    {
+                                        
+                                        foreach (Point p in gridMaster.grid)
+                                        {
+                                            if (p.obj != null)
+                                            {
+                                                p.obj.GetComponent<GridItem>().Die();
+
+                                            }
+                                        }
+                                        print("Die!");
+                                        return;
+                                    }
+                                    if (bbj2.myTypes.Contains(ObjectType.Win))
+                                    {
+                                        print("Win!");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
                 if (gridMaster.grid[ourGridIndex].localObjects.Contains(gameObject))
                 {
                     gridMaster.grid[ourGridIndex].localObjects.Remove(gameObject);
