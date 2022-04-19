@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class BabaObject : GridItem
 {
-    //General
-    public List<ObjectType> myTypes = new List<ObjectType>();
-    public BlockAppearance defaultBlock;
-    public SpriteRenderer myren;
+    // This class handles most object behaviors and appearance stuff
 
+
+    //General variables
+
+    public ObjectType babaType; //Current object behavior
+    public BlockAppearance defaultBlock; // What kind of block we are by default
+    public BlockAppearance currentApp; // What we currently look like due to in-game hijinks
+    [HideInInspector] public SpriteRenderer myren; // Reference to renderer
+
+    // References to things we might look like
     public Sprite Baba;
     public Sprite Rock;
     public Sprite Wall;
@@ -19,21 +25,17 @@ public class BabaObject : GridItem
     {
         base.Start();
         myren = GetComponent<SpriteRenderer>();
-        AssignAppearance(defaultBlock);
+        AssignAppearance(defaultBlock); // Set up our sprite
     }
     public override void LateUpdate()
     {
         base.LateUpdate();
-        PlayerUpdate();
+        PlayerUpdate(); // Check for player movement
     }
 
-    //Alex: Only need to update this when the type changes
-    private void UpdateTypeLogic()
+    public void UpdateTypeLogic()
     {
-        if(myTypes.Count == 0)
-        {
-            myTypes.Add(ObjectType.None);
-        }
+        // This update our block behaviors every time our related logic changes
         ObstacleUpdate();
         NoneUpdate();
         PushUpdate();
@@ -42,24 +44,35 @@ public class BabaObject : GridItem
 
     public void RefreshType(ObjectType ntype, bool appOverride)
     {
-        myTypes.Clear();
-        myTypes.Add(ntype);
-        UpdateTypeLogic();
+        // This lets other classes update us on what to look like
+        // And how to behave
 
-        if (appOverride)
+        babaType = ntype; // Grab our new behavior
+
+        UpdateTypeLogic(); // Refresh behavior
+
+        if (appOverride) // appOverride just lets us know if we're reseting to default
         {
-            AssignAppearance(defaultBlock);
+            AssignAppearance(defaultBlock); //Reset our appearance
         }
 
     }
+
     private void PlayerUpdate()
     {
-        if (myTypes.Contains(ObjectType.Player))
+        if (babaType == ObjectType.Player)
         {
             // Matches Player Input
+
+            // MoveIndex() is kept on the GridItem class, which we inherit from
+            // The first param is our movement index, kind of our direction
+            // The second param is letting the function know we want to actually move the block
+            // as opposed to just calculating whether or not we can
+            // The third param lets the function know the depth of recursion (see GridItem.cs for more)
+
             if (Input.GetKeyDown(KeyCode.W))
             {
-                MoveIndex(gridMaster.gridLength, true, 9);
+                MoveIndex(gridMaster.gridLength, true, 9); 
             }
             else if (Input.GetKeyDown(KeyCode.A))
             {
@@ -75,11 +88,13 @@ public class BabaObject : GridItem
             }
         }
     }   
-
+ 
     private void NoneUpdate()
     {
-        if (myTypes.Contains(ObjectType.None))
+        if (babaType == ObjectType.None)
         {
+            // If we have no logic statements telling us what to do,
+            // Make us intangible
             pushable = false;
             locked = false;
         }
@@ -87,8 +102,9 @@ public class BabaObject : GridItem
 
     private void PushUpdate()
     {
-        if (myTypes.Contains(ObjectType.Pushable))
+        if (babaType == ObjectType.Pushable)
         {
+            // Make us pushable
             pushable = true;
             locked = false;
         }
@@ -96,8 +112,9 @@ public class BabaObject : GridItem
 
     private void WinUpdate()
     {
-        if (myTypes.Contains(ObjectType.Win))
+        if (babaType == ObjectType.Win)
         {
+            // Make us intangible
             pushable = false;
             locked = false;
         }
@@ -105,15 +122,18 @@ public class BabaObject : GridItem
 
     private void ObstacleUpdate()
     {
-        if (myTypes.Contains(ObjectType.Obstacle))
+        if (babaType == ObjectType.Obstacle)
         {
+            // Make us impassable
             pushable = false;
             locked = true;
         }
     }
     public void AssignAppearance(BlockAppearance input)
     {
+        // This just sets our sprite to whatever we want
         myren.enabled = true;
+        currentApp = input;
         switch (input)
         {
             case BlockAppearance.None:
@@ -141,18 +161,19 @@ public class BabaObject : GridItem
 
 public enum ObjectType
 {
-    Player,
-    Obstacle,
-    Killer,
-    Win,
-    Pushable,
-    None,
+    // The different kind of block behaviors
+    Player, // YOU
+    Obstacle, // STOP
+    Killer, // DEATH
+    Win, // WIN
+    Pushable, // PUSH
+    None, // No logic associated
 }
 
 public enum BlockAppearance
 {
-    None,
-    Baba,
+    None, //Unused
+    Baba, 
     Wall,
     Death,
     Flag,

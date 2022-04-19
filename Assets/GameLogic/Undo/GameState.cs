@@ -6,7 +6,10 @@ using System;
 
 public class GameState {
     /*
-     * 
+     *  This class has been deprecated
+     *  
+     *  
+     *  
 //saved data
 public Vector3 playerPos;
 
