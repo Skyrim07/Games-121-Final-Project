@@ -5,35 +5,37 @@ using System;
 [Serializable]
 
 public class GameState {
-    //saved data
-    public Vector3 playerPos;
+    /*
+     * 
+//saved data
+public Vector3 playerPos;
 
-    public int playerIndex;
-    public Sprite playerSprite;
-    public List<Vector3> blockPositions;
+public int playerIndex;
+public Sprite playerSprite;
+public List<Vector3> blockPositions;
 
-    public static GameState GetCurrentState()
-    {
-        GameState gameStateToSave = new GameState();
-        SavedElement[] elementsToSaveOnScene = GameObject.FindObjectsOfType<SavedElement>();
-        gameStateToSave.blockPositions = new List<Vector3>();
-        foreach(SavedElement element in elementsToSaveOnScene)
-        {
-            gameStateToSave.playerIndex = element.GetComponent<GridItem>().ourGridIndex;
-            gameStateToSave.playerPos = element.transform.position;
-            /*
-            if (element.type == SavedElement.Type.Player)
-            {
-               
-              
-                gameStateToSave.playerSprite = element.transform.GetComponent<SpriteRenderer>().sprite;
-            } else if(element.type == SavedElement.Type.Block)
-            {
-                gameStateToSave.blockPositions.Add(element.transform.position);
-            }
-            */
-        }
-        return gameStateToSave; 
+public static GameState GetCurrentState()
+{
+GameState gameStateToSave = new GameState();
+SavedElement[] elementsToSaveOnScene = GameObject.FindObjectsOfType<SavedElement>();
+gameStateToSave.blockPositions = new List<Vector3>();
+foreach(SavedElement element in elementsToSaveOnScene)
+{
+gameStateToSave.playerIndex = element.GetComponent<GridItem>().ourGridIndex;
+gameStateToSave.playerPos = element.transform.position;
+
+if (element.type == SavedElement.Type.Player)
+{
+
+
+    gameStateToSave.playerSprite = element.transform.GetComponent<SpriteRenderer>().sprite;
+} else if(element.type == SavedElement.Type.Block)
+{
+    gameStateToSave.blockPositions.Add(element.transform.position);
+}
+
+}
+return gameStateToSave; 
     }
 
     public void LoadGameState()
@@ -57,8 +59,8 @@ public class GameState {
                 elementToLoad.transform.position = remainingBlockPosition[0];
                 remainingBlockPosition.RemoveAt(0);
             }
-            */
+
         }
     }
-
+                */
 }

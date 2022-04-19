@@ -221,7 +221,7 @@ MonoBehaviour:
   isLogicBlock: 0
   gamemanager: {fileID: 0}
   myTypes: 01000000
-  defaultType: 2
+  defaultBlock: 2
   myren: {fileID: 0}
   Baba: {fileID: -7650119137935736425, guid: d7ac3ec50c56f448382234f922804709, type: 3}
   Rock: {fileID: 120768646595506803, guid: d7ac3ec50c56f448382234f922804709, type: 3}
@@ -371,8 +371,8 @@ MonoBehaviour:
   locked: 0
   isLogicBlock: 1
   gamemanager: {fileID: 0}
-  myBlock:
-  - {fileID: 2081507149}
+  myBlock: []
+  defaultBlock: 1
 --- !u!212 &205564082
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -647,11 +647,8 @@ MonoBehaviour:
   locked: 0
   isLogicBlock: 1
   gamemanager: {fileID: 0}
-  myBlock:
-  - {fileID: 862618731}
-  - {fileID: 538739092}
-  - {fileID: 1086677822}
-  - {fileID: 1277033203}
+  myBlock: []
+  defaultBlock: 5
 --- !u!212 &249732165
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -796,7 +793,7 @@ MonoBehaviour:
   isLogicBlock: 0
   gamemanager: {fileID: 0}
   myTypes: 01000000
-  defaultType: 2
+  defaultBlock: 2
   myren: {fileID: 0}
   Baba: {fileID: -7650119137935736425, guid: d7ac3ec50c56f448382234f922804709, type: 3}
   Rock: {fileID: 120768646595506803, guid: d7ac3ec50c56f448382234f922804709, type: 3}
@@ -1003,8 +1000,8 @@ MonoBehaviour:
   locked: 0
   isLogicBlock: 0
   gamemanager: {fileID: 0}
-  myTypes: 01000000
-  defaultType: 5
+  myTypes: 
+  defaultBlock: 5
   myren: {fileID: 0}
   Baba: {fileID: -7650119137935736425, guid: d7ac3ec50c56f448382234f922804709, type: 3}
   Rock: {fileID: 120768646595506803, guid: d7ac3ec50c56f448382234f922804709, type: 3}
@@ -1246,9 +1243,8 @@ MonoBehaviour:
   locked: 0
   isLogicBlock: 1
   gamemanager: {fileID: 0}
-  myBlock:
-  - {fileID: 108063450}
-  - {fileID: 291036379}
+  myBlock: []
+  defaultBlock: 2
 --- !u!114 &644543313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1300,8 +1296,8 @@ MonoBehaviour:
   locked: 0
   isLogicBlock: 0
   gamemanager: {fileID: 0}
-  myTypes: 05000000
-  defaultType: 5
+  myTypes: 
+  defaultBlock: 5
   myren: {fileID: 0}
   Baba: {fileID: -7650119137935736425, guid: d7ac3ec50c56f448382234f922804709, type: 3}
   Rock: {fileID: 120768646595506803, guid: d7ac3ec50c56f448382234f922804709, type: 3}
@@ -1427,7 +1423,7 @@ GameObject:
   - component: {fileID: 871454385}
   - component: {fileID: 871454384}
   m_Layer: 0
-  m_Name: baba (1)
+  m_Name: death
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1491,7 +1487,7 @@ MonoBehaviour:
   isLogicBlock: 0
   gamemanager: {fileID: 0}
   myTypes: 05000000
-  defaultType: 3
+  defaultBlock: 3
   myren: {fileID: 0}
   Baba: {fileID: -7650119137935736425, guid: d7ac3ec50c56f448382234f922804709, type: 3}
   Rock: {fileID: 120768646595506803, guid: d7ac3ec50c56f448382234f922804709, type: 3}
@@ -1641,8 +1637,8 @@ MonoBehaviour:
   locked: 1
   isLogicBlock: 0
   gamemanager: {fileID: 0}
-  myTypes: 01000000
-  defaultType: 5
+  myTypes: 
+  defaultBlock: 5
   myren: {fileID: 0}
   Baba: {fileID: -7650119137935736425, guid: d7ac3ec50c56f448382234f922804709, type: 3}
   Rock: {fileID: 120768646595506803, guid: d7ac3ec50c56f448382234f922804709, type: 3}
@@ -1905,8 +1901,8 @@ MonoBehaviour:
   locked: 0
   isLogicBlock: 0
   gamemanager: {fileID: 0}
-  myTypes: 01000000
-  defaultType: 5
+  myTypes: 
+  defaultBlock: 5
   myren: {fileID: 0}
   Baba: {fileID: -7650119137935736425, guid: d7ac3ec50c56f448382234f922804709, type: 3}
   Rock: {fileID: 120768646595506803, guid: d7ac3ec50c56f448382234f922804709, type: 3}
@@ -2720,8 +2716,8 @@ MonoBehaviour:
   locked: 0
   isLogicBlock: 0
   gamemanager: {fileID: 0}
-  myTypes: 03000000
-  defaultType: 4
+  myTypes: 
+  defaultBlock: 4
   myren: {fileID: 0}
   Baba: {fileID: -7650119137935736425, guid: d7ac3ec50c56f448382234f922804709, type: 3}
   Rock: {fileID: 120768646595506803, guid: d7ac3ec50c56f448382234f922804709, type: 3}
@@ -3061,7 +3057,7 @@ MonoBehaviour:
   isLogicBlock: 0
   gamemanager: {fileID: 0}
   myTypes: 05000000
-  defaultType: 1
+  defaultBlock: 1
   myren: {fileID: 0}
   Baba: {fileID: -7650119137935736425, guid: d7ac3ec50c56f448382234f922804709, type: 3}
   Rock: {fileID: 120768646595506803, guid: d7ac3ec50c56f448382234f922804709, type: 3}

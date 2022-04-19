@@ -8,18 +8,18 @@ public class IsBlock : GridItem
     public bool logicActive;
 
     // Start is called before the first frame update
+
     public override void Start()
     {
         isLogicBlock = true;
         pushable = true;
         base.Start();
-        CheckActive();
     }
 
     private void LateUpdate()
     {
         base.LateUpdate();
-        CheckActive();
+        //CheckActive();
     }
 
     ObjectType OurVerb(GameObject verb)
@@ -143,14 +143,15 @@ public class IsBlock : GridItem
     {
         foreach (BabaObject baba in OurNoun(noun)) //Iterates through every noun (wall, for instance)
         {
-            baba.RefreshType(OurVerb(verb)); //Only allows for one type per block currently
+            baba.RefreshType(OurVerb(verb), false); //Only allows for one type per block currently
         } 
     }
     void ApplyNoun2Noun(GameObject n1, GameObject n2)
     {
         foreach(BabaObject baba in OurNoun(n1))
         {
-            baba.AssignAppearance(OurNoun(n2)[0].defaultType);
+            baba.AssignAppearance(OurNoun(n2)[0].defaultBlock);
+            OurNoun(n2).Add(baba);
         }
     }
 }

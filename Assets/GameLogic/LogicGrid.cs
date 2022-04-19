@@ -33,6 +33,13 @@ public class LogicGrid : MonoBehaviour
         BuildGrid();
     }
 
+    private IEnumerator Start()
+    {
+        yield return new WaitForEndOfFrame();
+        RefreshLogic();
+        yield break;
+    }
+
     public int NearestPoint(Vector2 pos) //Gives the nearest grid point for any position
     {
         int y;

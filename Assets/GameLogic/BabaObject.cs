@@ -6,7 +6,7 @@ public class BabaObject : GridItem
 {
     //General
     public List<ObjectType> myTypes = new List<ObjectType>();
-    public BlockAppearance defaultType;
+    public BlockAppearance defaultBlock;
     public SpriteRenderer myren;
 
     public Sprite Baba;
@@ -17,12 +17,13 @@ public class BabaObject : GridItem
 
     public override void Start()
     {
-        myren = GetComponent<SpriteRenderer>();
         base.Start();
-        AssignAppearance(defaultType);
+        myren = GetComponent<SpriteRenderer>();
+        AssignAppearance(defaultBlock);
     }
-    private void LateUpdate()
+    public override void LateUpdate()
     {
+        base.LateUpdate();
         PlayerUpdate();
     }
 
@@ -39,12 +40,17 @@ public class BabaObject : GridItem
         WinUpdate();
     }
 
-    public void RefreshType(ObjectType ntype)
+    public void RefreshType(ObjectType ntype, bool appOverride)
     {
         myTypes.Clear();
         myTypes.Add(ntype);
         UpdateTypeLogic();
-        AssignAppearance(defaultType);
+
+        if (appOverride)
+        {
+            AssignAppearance(defaultBlock);
+        }
+
     }
     private void PlayerUpdate()
     {
@@ -67,7 +73,6 @@ public class BabaObject : GridItem
             {
                 MoveIndex(1, true, 9);
             }
-            GameManager.SaveGameState();
         }
     }   
 
