@@ -221,6 +221,7 @@ MonoBehaviour:
   isLogicBlock: 0
   gamemanager: {fileID: 0}
   myTypes: 01000000
+  babaType: 0
   defaultBlock: 2
   myren: {fileID: 0}
   Baba: {fileID: -7650119137935736425, guid: d7ac3ec50c56f448382234f922804709, type: 3}
@@ -373,6 +374,7 @@ MonoBehaviour:
   gamemanager: {fileID: 0}
   myBlock: []
   defaultBlock: 1
+  effect: 0
 --- !u!212 &205564082
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -649,6 +651,7 @@ MonoBehaviour:
   gamemanager: {fileID: 0}
   myBlock: []
   defaultBlock: 5
+  effect: 0
 --- !u!212 &249732165
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -793,6 +796,7 @@ MonoBehaviour:
   isLogicBlock: 0
   gamemanager: {fileID: 0}
   myTypes: 01000000
+  babaType: 0
   defaultBlock: 2
   myren: {fileID: 0}
   Baba: {fileID: -7650119137935736425, guid: d7ac3ec50c56f448382234f922804709, type: 3}
@@ -1001,6 +1005,7 @@ MonoBehaviour:
   isLogicBlock: 0
   gamemanager: {fileID: 0}
   myTypes: 
+  babaType: 0
   defaultBlock: 5
   myren: {fileID: 0}
   Baba: {fileID: -7650119137935736425, guid: d7ac3ec50c56f448382234f922804709, type: 3}
@@ -1245,6 +1250,7 @@ MonoBehaviour:
   gamemanager: {fileID: 0}
   myBlock: []
   defaultBlock: 2
+  effect: 0
 --- !u!114 &644543313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1297,6 +1303,7 @@ MonoBehaviour:
   isLogicBlock: 0
   gamemanager: {fileID: 0}
   myTypes: 
+  babaType: 0
   defaultBlock: 5
   myren: {fileID: 0}
   Baba: {fileID: -7650119137935736425, guid: d7ac3ec50c56f448382234f922804709, type: 3}
@@ -1487,6 +1494,7 @@ MonoBehaviour:
   isLogicBlock: 0
   gamemanager: {fileID: 0}
   myTypes: 05000000
+  babaType: 5
   defaultBlock: 3
   myren: {fileID: 0}
   Baba: {fileID: -7650119137935736425, guid: d7ac3ec50c56f448382234f922804709, type: 3}
@@ -1638,6 +1646,7 @@ MonoBehaviour:
   isLogicBlock: 0
   gamemanager: {fileID: 0}
   myTypes: 
+  babaType: 0
   defaultBlock: 5
   myren: {fileID: 0}
   Baba: {fileID: -7650119137935736425, guid: d7ac3ec50c56f448382234f922804709, type: 3}
@@ -1902,6 +1911,7 @@ MonoBehaviour:
   isLogicBlock: 0
   gamemanager: {fileID: 0}
   myTypes: 
+  babaType: 0
   defaultBlock: 5
   myren: {fileID: 0}
   Baba: {fileID: -7650119137935736425, guid: d7ac3ec50c56f448382234f922804709, type: 3}
@@ -2717,6 +2727,7 @@ MonoBehaviour:
   isLogicBlock: 0
   gamemanager: {fileID: 0}
   myTypes: 
+  babaType: 5
   defaultBlock: 4
   myren: {fileID: 0}
   Baba: {fileID: -7650119137935736425, guid: d7ac3ec50c56f448382234f922804709, type: 3}
@@ -3057,6 +3068,7 @@ MonoBehaviour:
   isLogicBlock: 0
   gamemanager: {fileID: 0}
   myTypes: 05000000
+  babaType: 0
   defaultBlock: 1
   myren: {fileID: 0}
   Baba: {fileID: -7650119137935736425, guid: d7ac3ec50c56f448382234f922804709, type: 3}

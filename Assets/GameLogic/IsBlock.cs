@@ -5,9 +5,16 @@ using SKCell;
 
 public class IsBlock : GridItem
 {
-    public bool logicActive;
+    /// <summary>
+    /// 
+    /// This class is on each of our IS blocks, and handles our logic
+    /// Each IS block checks for Noun and Verb blocks adjacent to it,
+    /// And applies the resultant logic statement to the game
+    /// 
+    /// </summary>
 
-    // Start is called before the first frame update
+    public bool logicActive; // Is this block on?
+
 
     public override void Start()
     {
@@ -16,24 +23,20 @@ public class IsBlock : GridItem
         base.Start();
     }
 
-    private void LateUpdate()
-    {
-        base.LateUpdate();
-        //CheckActive();
-    }
-
     ObjectType OurVerb(GameObject verb)
     {
-        //Find and return what kind of verb we're using
-        
+        //Find and return what kind of effect this verb applies
         return verb.GetComponent<VerbBlock>().myType;
     }
 
+    // Get us the list of objects this noun controls
     List<BabaObject> OurNoun(GameObject noun)
     {
         return noun.GetComponent<NounBlock>().myBlock;
     }
-    public void CheckActive() //We could call this every time a LogicObject moves (noun, verb, is, and)
+
+    // Check adjacent squares for logic statements
+    public void CheckActive() 
     {
         logicActive = false; // Reset from previous call
         
@@ -43,53 +46,62 @@ public class IsBlock : GridItem
             return;
         }
 
-        //If we have a noun above us or too our left, we're active
+        //If we have a noun above us or to our left, we're active
         GameObject left = null;
         GameObject right = null;
 
+        // Check left
         if (gridMaster.grid[ourGridIndex - 1].localObjects.Count > 0)
         {
-            left = gridMaster.grid[ourGridIndex - 1].localObjects[0];
+            left = gridMaster.grid[ourGridIndex - 1].localObjects[0]; // Check the first stored obj to our left
+
+            // Is it useful?
             if (!left.GetComponent<GridItem>().isLogicBlock && gridMaster.grid[ourGridIndex - 1].localObjects.Count > 1)
             {
+                // Nope, try the second stored obj there
                 left = gridMaster.grid[ourGridIndex - 1].localObjects[1];
             }
         }
+        //Check right
         if(gridMaster.grid[ourGridIndex + 1].localObjects.Count > 0)
         {
-            right = gridMaster.grid[ourGridIndex + 1].localObjects[0];
+            right = gridMaster.grid[ourGridIndex + 1].localObjects[0]; // Check the first stored obj
+
+            //Is it useful?
             if (!right.GetComponent<GridItem>().isLogicBlock && gridMaster.grid[ourGridIndex + 1].localObjects.Count > 1)
             {
+                // Nope, try the second
                 right = gridMaster.grid[ourGridIndex + 1].localObjects[1];
             }
         }
-        
-        if (left != null)
+
+        if (left != null) // Can't be too safe
         {
-            if (left.CompareTag("Noun"))
+            if (left.CompareTag("Noun")) // Is it a noun?
             {
-                if (right != null)
+                if (right != null) // Cant be too safe
                 {
-                    if (right.CompareTag("Verb"))
+                    if (right.CompareTag("Verb")) 
                     {
-                        logicActive = true;
-                        ApplyLogic(left, right);
+                        // Thats a valid statement!
+                        logicActive = true; 
+                        ApplyLogic(left, right); // Apply the logic
                     }
                     if (right.CompareTag("Noun"))
                     {
+                        // Todo check for logic chains, prevent floating noun statements
+
+                        // That's valid!
                         logicActive = true;
-                        ApplyNoun2Noun(left, right);
+                        ApplyNoun2Noun(left, right); // Apply the logic
                     }
                 }
             }
         }
 
-        //Check up/down logic
-        //Check to make sure we're not at the end of the array
+        // Same as above, but for up/down. Only the movement indices are different
         if((ourGridIndex < (gridMaster.gridLength * gridMaster.gridLength) - gridMaster.gridLength) && ourGridIndex > gridMaster.gridLength)
         {
-
-
             GameObject up = null;
             GameObject down = null;
 
@@ -109,10 +121,6 @@ public class IsBlock : GridItem
                     down = gridMaster.grid[ourGridIndex - gridMaster.gridLength].localObjects[1];
                 }
             }
-
-            //GameObject up = gridMaster.grid[ourGridIndex + gridMaster.gridLength].obj;
-            //GameObject down = gridMaster.grid[ourGridIndex - gridMaster.gridLength].obj;
-
             if (up != null)
             {
                 if (up.CompareTag("Noun"))
@@ -121,37 +129,51 @@ public class IsBlock : GridItem
                     {
                         if (down.CompareTag("Verb"))
                         {
-                           
                             logicActive = true;
                             ApplyLogic(up, down); 
                         }
                         if (down.CompareTag("Noun"))
                         {
-
                             logicActive = true;
                             ApplyNoun2Noun(up, down);
                         }
                     }
-
                 }
             }
         }
-        // If we didn't return, we didn't apply logic, so this code runs
     }
 
+    // Noun to Verb logic
     void ApplyLogic(GameObject noun, GameObject verb)
     {
-        foreach (BabaObject baba in OurNoun(noun)) //Iterates through every noun (wall, for instance)
+        foreach (BabaObject baba in OurNoun(noun)) // For every block in our noun
         {
-            baba.RefreshType(OurVerb(verb), false); //Only allows for one type per block currently
-        } 
+            // Apply the new effect
+            baba.RefreshType(OurVerb(verb), false);
+        }
+        // Let the noun know (for logic chaining purposes)
+        noun.GetComponent<NounBlock>().effect = OurVerb(verb);
     }
+
+    // Noun to noun logic
     void ApplyNoun2Noun(GameObject n1, GameObject n2)
     {
-        foreach(BabaObject baba in OurNoun(n1))
+        foreach(BabaObject baba in OurNoun(n1)) // For every block in our target-noun
         {
-            baba.AssignAppearance(OurNoun(n2)[0].defaultBlock);
+
+            // Apply the new sprites
+            baba.AssignAppearance(OurNoun(n2)[0].currentApp);
+
+            // Add objects to the target noun's list
             OurNoun(n2).Add(baba);
+
+            //In the event that this is happening after ApplyLogic(), we need to apply the effects
+            baba.babaType = n2.GetComponent<NounBlock>().effect;
+
+            // And make sure that BabaObject is caught up
+            baba.UpdateTypeLogic();
         }
+        // Mark the effects ( for chaining purposes)
+        n1.GetComponent<NounBlock>().effect = n2.GetComponent<NounBlock>().effect;
     }
 }

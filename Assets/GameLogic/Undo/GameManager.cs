@@ -4,21 +4,25 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    public static List<GameState> savedStates = new List<GameState>();
-    public int currentMove;
+    // This class I hijacked, it now only stores the current global move counter
 
-    public bool pmove = false;
+    [SerializeField]
+    // this has been deprecated
+    public static List<GameState> savedStates = new List<GameState>();
+
+    public int currentMove; // Global move counter
+
+    public bool pmove = false; 
 
 
     void Update()
     {
-        if (pmove == true)
+        if (pmove == true) // Did someone move?
         {
             currentMove++;
         }
 
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z)) // Did we undo?
         {
             currentMove -= 1;
         }
@@ -26,6 +30,6 @@ public class GameManager : MonoBehaviour
         {
             currentMove = 0;
         }
-        pmove = false;
+        pmove = false; 
     }
 }

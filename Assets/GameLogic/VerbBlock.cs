@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class VerbBlock: GridItem
 {
-    public ObjectType myType;
+    // This class is on every Verb block (Like PUSH, or STOP)
 
-    // Start is called before the first frame update
+    // It currently doesn't have much additional logic
+    // It stores this ObjectType
+    public ObjectType myType;
+    // Which lets the IsBlock class know what kind of effect to apply to related blocks
+
     public override void Start()
     {
         isLogicBlock = true;
         pushable = true;
         base.Start();
     }
+
 }
 
