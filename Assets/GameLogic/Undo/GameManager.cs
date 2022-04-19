@@ -7,12 +7,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public static List<GameState> savedStates = new List<GameState>();
     public int currentMove;
-    private bool consec = false;
+
     public bool pmove = false;
-    void Start()
-    {
-        //SaveGameState();
-    }
+
 
     void Update()
     {
@@ -31,29 +28,4 @@ public class GameManager : MonoBehaviour
         }
         pmove = false;
     }
- 
-
-    public static void SaveGameState()
-    {
-        savedStates.Add(GameState.GetCurrentState());
-    }
-
-
-    public static void UndoMove()
-    {
-        if(savedStates.Count <= 1)
-        {
-            Debug.Log("No moves to undo");
-        }
-        else
-        {
-            savedStates[savedStates.Count - 2].LoadGameState();
-            savedStates.RemoveAt(savedStates.Count - 1);
-        }
-
-    }
-
-
-
-
 }

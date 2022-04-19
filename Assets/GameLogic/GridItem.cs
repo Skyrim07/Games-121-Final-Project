@@ -28,6 +28,7 @@ public class GridItem : MonoBehaviour
     public List<Move> Moves = new List<Move>();
     public GameManager gamemanager;
     // Start is called before the first frame update
+
     public virtual void Start()
     {
         gamemanager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
@@ -42,7 +43,8 @@ public class GridItem : MonoBehaviour
     {
         Moves.Add(new Move(gamemanager.currentMove, ourGridIndex));
     }
-    public void LateUpdate()
+
+    public virtual void LateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
@@ -69,7 +71,7 @@ public class GridItem : MonoBehaviour
 
                 if (isLogicBlock)
                 {
-                    gridMaster.RefreshLogic();
+                    StartCoroutine(WaitRefresh());
                 }
             }
             
@@ -77,6 +79,15 @@ public class GridItem : MonoBehaviour
         
 
     }
+
+    private IEnumerator WaitRefresh()
+    {
+        yield return new WaitForEndOfFrame();
+        gridMaster.RefreshLogic();
+        yield break;
+    }
+
+
     public void Die()
     {
         gamemanager.currentMove = 0;
@@ -86,6 +97,7 @@ public class GridItem : MonoBehaviour
         Moves.Add(firstMove);
         Load();
     }
+
     void DoMove(int moveIndex)
     {
         gamemanager.pmove = true;
@@ -100,7 +112,7 @@ public class GridItem : MonoBehaviour
                     {
                         if (bbj.myTypes.Contains(ObjectType.Player))
                         {
-                            print("Player move");
+                      
                             foreach (var item2 in gridMaster.grid[ourGridIndex + moveIndex].localObjects)
                             {
                                 if (item2.TryGetComponent<BabaObject>(out BabaObject bbj2))
@@ -140,7 +152,7 @@ public class GridItem : MonoBehaviour
 
                 if (isLogicBlock)
                 {
-                    gridMaster.RefreshLogic();
+                    StartCoroutine(WaitRefresh());
                 }
             }
         }

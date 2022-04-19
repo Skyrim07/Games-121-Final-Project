@@ -6,13 +6,24 @@ public class BabaObject : GridItem
 {
     //General
     public List<ObjectType> myTypes = new List<ObjectType>();
+    public BlockAppearance defaultBlock;
+    public SpriteRenderer myren;
+
+    public Sprite Baba;
+    public Sprite Rock;
+    public Sprite Wall;
+    public Sprite Flag;
+    public Sprite Death;
 
     public override void Start()
     {
         base.Start();
+        myren = GetComponent<SpriteRenderer>();
+        AssignAppearance(defaultBlock);
     }
-    private void Update()
+    public override void LateUpdate()
     {
+        base.LateUpdate();
         PlayerUpdate();
     }
 
@@ -29,11 +40,17 @@ public class BabaObject : GridItem
         WinUpdate();
     }
 
-    public void RefreshType(ObjectType ntype)
+    public void RefreshType(ObjectType ntype, bool appOverride)
     {
         myTypes.Clear();
         myTypes.Add(ntype);
         UpdateTypeLogic();
+
+        if (appOverride)
+        {
+            AssignAppearance(defaultBlock);
+        }
+
     }
     private void PlayerUpdate()
     {
@@ -56,7 +73,6 @@ public class BabaObject : GridItem
             {
                 MoveIndex(1, true, 9);
             }
-            GameManager.SaveGameState();
         }
     }   
 
@@ -95,6 +111,32 @@ public class BabaObject : GridItem
             locked = true;
         }
     }
+    public void AssignAppearance(BlockAppearance input)
+    {
+        myren.enabled = true;
+        switch (input)
+        {
+            case BlockAppearance.None:
+                myren.enabled = false;
+                break;
+            case BlockAppearance.Baba:
+                myren.sprite = Baba;
+                break;
+            case BlockAppearance.Rock:
+                myren.sprite = Rock;
+                break;
+            case BlockAppearance.Wall:
+                myren.sprite = Wall;
+                break;
+            case BlockAppearance.Flag:
+                myren.sprite = Flag;
+                break;
+            case BlockAppearance.Death:
+                myren.sprite = Death;
+                break;
+
+        }
+    }
 }
 
 public enum ObjectType
@@ -105,5 +147,16 @@ public enum ObjectType
     Win,
     Pushable,
     None,
+}
+
+public enum BlockAppearance
+{
+    None,
+    Baba,
+    Wall,
+    Death,
+    Flag,
+    Rock,
+
 }
 
