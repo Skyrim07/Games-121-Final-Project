@@ -77,6 +77,15 @@ public class GridItem : MonoBehaviour
         
 
     }
+    public void Die()
+    {
+        gamemanager.currentMove = 0;
+        Move firstMove = Moves[0];
+        Moves.Clear();
+        Moves.Add(firstMove);
+        Moves.Add(firstMove);
+        Load();
+    }
     void DoMove(int moveIndex)
     {
         gamemanager.pmove = true;
@@ -96,6 +105,20 @@ public class GridItem : MonoBehaviour
                             {
                                 if (item2.TryGetComponent<BabaObject>(out BabaObject bbj2))
                                 {
+                                    if (bbj2.myTypes.Contains(ObjectType.Killer))
+                                    {
+                                        
+                                        foreach (Point p in gridMaster.grid)
+                                        {
+                                            if (p.obj != null)
+                                            {
+                                                p.obj.GetComponent<GridItem>().Die();
+
+                                            }
+                                        }
+                                        print("Die!");
+                                        return;
+                                    }
                                     if (bbj2.myTypes.Contains(ObjectType.Win))
                                     {
                                         print("Win!");
