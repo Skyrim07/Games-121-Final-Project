@@ -23,9 +23,23 @@ public class LevelManager : MonoSingleton<LevelManager>
 
     private void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.K))
         {
             LoadLevel(2);
+        }
+
+    }
+
+    // Added by Jack
+    // For easy use in GridItem.cs
+    public void LoadNextLevel()
+    {
+        Scene curScene = SceneManager.GetActiveScene();
+        int curIndex = curScene.buildIndex;
+        if(curIndex < SceneManager.sceneCountInBuildSettings - 1)
+        {
+            LoadLevel(curIndex + 1);
         }
     }
 
