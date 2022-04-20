@@ -22,6 +22,7 @@ public struct Move
 public class GridItem : MonoBehaviour
 {
     [HideInInspector] public LogicGrid gridMaster;
+    [HideInInspector] public LevelManager levelManager;
 
     public int ourGridIndex; // Our current position on the grid
 
@@ -39,14 +40,20 @@ public class GridItem : MonoBehaviour
     {
         //References
         gamemanager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        
         gridMaster = GameObject.FindGameObjectWithTag("GridManager").GetComponent<LogicGrid>();
 
         // Local Grid Setup stuff
         ourGridIndex = gridMaster.NearestPoint(transform.position); // Snaps position to grid
         gridMaster.Register(ourGridIndex, gameObject); // Tells the LogicGrid to put us on the grid
         transform.position = gridMaster.grid[ourGridIndex].pos; // Adjusts our position
-
         Save();
+
+        if(GameObject.FindGameObjectWithTag("LevelManager") != null)
+        {
+            levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+        }
+            
     }
 
     public void Save()
@@ -198,6 +205,7 @@ public class GridItem : MonoBehaviour
                                     // Did we win?
                                     if (bbj2.babaType == ObjectType.Win)
                                     {
+                                        levelManager.LoadNextLevel();
                                         print("Win!");
                                     }
                                 }

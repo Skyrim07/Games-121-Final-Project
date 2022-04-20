@@ -9,6 +9,7 @@ TagManager:
   - GridManager
   - Is
   - GameManager
+  - LevelManager
   layers:
   - Default
   - TransparentFX

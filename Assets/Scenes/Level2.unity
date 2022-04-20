@@ -215,6 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMaster: {fileID: 0}
+  levelManager: {fileID: 0}
   ourGridIndex: 0
   pushable: 0
   locked: 0
@@ -367,6 +368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMaster: {fileID: 1756858564}
+  levelManager: {fileID: 0}
   ourGridIndex: 0
   pushable: 1
   locked: 0
@@ -495,6 +497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMaster: {fileID: 1756858564}
+  levelManager: {fileID: 0}
   ourGridIndex: 0
   pushable: 1
   locked: 0
@@ -644,6 +647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMaster: {fileID: 1756858564}
+  levelManager: {fileID: 0}
   ourGridIndex: 0
   pushable: 1
   locked: 0
@@ -790,6 +794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMaster: {fileID: 0}
+  levelManager: {fileID: 0}
   ourGridIndex: 0
   pushable: 0
   locked: 0
@@ -936,7 +941,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7.51
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -999,6 +1004,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMaster: {fileID: 0}
+  levelManager: {fileID: 0}
   ourGridIndex: 0
   pushable: 0
   locked: 0
@@ -1243,6 +1249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMaster: {fileID: 1756858564}
+  levelManager: {fileID: 0}
   ourGridIndex: 0
   pushable: 1
   locked: 0
@@ -1297,6 +1304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMaster: {fileID: 0}
+  levelManager: {fileID: 0}
   ourGridIndex: 0
   pushable: 0
   locked: 0
@@ -1488,6 +1496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMaster: {fileID: 0}
+  levelManager: {fileID: 0}
   ourGridIndex: 0
   pushable: 0
   locked: 0
@@ -1640,6 +1649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMaster: {fileID: 0}
+  levelManager: {fileID: 0}
   ourGridIndex: 0
   pushable: 0
   locked: 1
@@ -1905,6 +1915,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMaster: {fileID: 0}
+  levelManager: {fileID: 0}
   ourGridIndex: 0
   pushable: 0
   locked: 0
@@ -2044,6 +2055,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMaster: {fileID: 1756858564}
+  levelManager: {fileID: 0}
   ourGridIndex: 0
   pushable: 1
   locked: 0
@@ -2170,6 +2182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMaster: {fileID: 1756858564}
+  levelManager: {fileID: 0}
   ourGridIndex: 0
   pushable: 1
   locked: 0
@@ -2314,6 +2327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMaster: {fileID: 1756858564}
+  levelManager: {fileID: 0}
   ourGridIndex: 0
   pushable: 1
   locked: 0
@@ -2379,16 +2393,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639885010}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.4663427}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2087414078}
   m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.86, y: -2.95}
+  m_AnchoredPosition: {x: 8.402751, y: -3.4456384}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 3.1180525, y: 3.1758032}
 --- !u!1 &1659025175
@@ -2490,6 +2504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMaster: {fileID: 1756858564}
+  levelManager: {fileID: 0}
   ourGridIndex: 0
   pushable: 1
   locked: 0
@@ -2695,6 +2710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMaster: {fileID: 1756858564}
+  levelManager: {fileID: 0}
   ourGridIndex: 0
   pushable: 1
   locked: 0
@@ -2852,12 +2868,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMaster: {fileID: 1756858564}
+  levelManager: {fileID: 0}
   ourGridIndex: 0
   pushable: 1
   locked: 0
   isLogicBlock: 1
   gamemanager: {fileID: 0}
-  myType: 2
+  myType: 3
 --- !u!212 &1930197897
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2917,11 +2934,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1930197893}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.8500004, y: -4.06, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 8.392752, y: -4.5556383, z: 1.4663427}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2087414078}
   m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1983438301
@@ -2996,6 +3013,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMaster: {fileID: 0}
+  levelManager: {fileID: 0}
   ourGridIndex: 0
   pushable: 0
   locked: 0
@@ -3201,6 +3219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMaster: {fileID: 1756858564}
+  levelManager: {fileID: 0}
   ourGridIndex: 0
   pushable: 1
   locked: 0
@@ -3292,13 +3311,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMaster: {fileID: 1756858564}
+  levelManager: {fileID: 0}
   ourGridIndex: 0
   pushable: 1
   locked: 0
   isLogicBlock: 1
   gamemanager: {fileID: 0}
   myBlock: []
-  defaultBlock: 3
+  defaultBlock: 4
   effect: 5
 --- !u!212 &2044683514
 SpriteRenderer:
@@ -3359,11 +3379,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2044683510}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.8900003, y: -1.89, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 8.432752, y: -2.3856385, z: 1.4663427}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2087414078}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2057863274
@@ -3483,6 +3503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridMaster: {fileID: 0}
+  levelManager: {fileID: 0}
   ourGridIndex: 0
   pushable: 0
   locked: 0
@@ -3611,6 +3632,9 @@ Transform:
   - {fileID: 1277033205}
   - {fileID: 2081507151}
   - {fileID: 871454388}
+  - {fileID: 2044683515}
+  - {fileID: 1639885015}
+  - {fileID: 1930197898}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
