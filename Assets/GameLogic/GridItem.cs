@@ -265,8 +265,28 @@ public class GridItem : MonoBehaviour
                         {
                             move.Add(obj.GetComponent<GridItem>());
                         }
-                    }
 
+                        // Is it a player?
+                        if (obj.TryGetComponent<BabaObject>(out BabaObject baba))
+                        {
+                           
+                            if(baba.babaType == ObjectType.Player)
+                            {
+                                if(baba.MoveIndex(moveIndex, doIt, depth - 1))
+                                {
+                                    // It's a player, and it can move, so we ignore it here
+                                    // It will move itself later
+                                }
+                                else
+                                {
+                                    // It's a player and it can't move
+                                    return false;
+                                }
+                            }
+                          
+                        }
+                    }
+                
                     // If we have items to evaluate
                     if (move.Count > 0)
                     {
