@@ -113,16 +113,37 @@ public class GridItem : MonoBehaviour
         yield break;
     }
 
+    // Coroutine Wrapper function
+    // Lets us call MarkDead() from outside this instance
+    public void QueueReset()
+    {
+        StartCoroutine(MarkDead());
+    }
+
+    //This coroutine ensures that we don't modify
+    // the p.localObjects while we still need them in DoMove()
+    IEnumerator MarkDead()
+    {
+        yield return new WaitForFixedUpdate(); //Delays action one frame
+        Die();
+        yield break;
+    }
+
     // This resets every block to the starting position
     public void Die()
     {
-        Move firstMove = Moves[0]; // Gets us a reference to the start position
-        Moves.Clear(); // Clears local move history
-
-     
-        Moves.Add(firstMove); // Gives the move history the start position
-        Moves.Add(firstMove); // Gives the load function data to unload
-        Load(); 
+        Debug.Log(Moves.Count + " " + gameObject.name);
+        // Prevents redundant loading by only resetting if it has moved
+        if(Moves.Count > 1)
+        {
+            Debug.Log("resetting pos");
+            gamemanager.currentMove = 0;
+            Move firstMove = Moves[0]; // Gets us a reference to the start position
+            Moves.Clear(); // Clears local move history
+            Moves.Add(firstMove); // Gives the move history the start position
+            Moves.Add(firstMove); // Gives the load function data to unload
+            Load();
+        }
     }
 
     void DoMove(int moveIndex)
@@ -166,10 +187,11 @@ public class GridItem : MonoBehaviour
                                         {
                                             foreach (GameObject g in p.localObjects)
                                             {
-                                                g.GetComponent<GridItem>().Die();
+                                                g.GetComponent<GridItem>().QueueReset();
                                             }
                                         }
                                         print("Die!");
+                                     
                                         return; // Don't need to execute the move anymore
 
                                     }
@@ -265,8 +287,27 @@ public class GridItem : MonoBehaviour
                         {
                             move.Add(obj.GetComponent<GridItem>());
                         }
-                    }
 
+                        // Is it a player?
+                        if (obj.TryGetComponent<BabaObject>(out BabaObject baba))
+                        {
+                            if(baba.babaType == ObjectType.Player)
+                            {
+                                if(baba.MoveIndex(moveIndex, false, depth - 1))
+                                {
+                                    // It's a player, and it can move, so we ignore it here
+                                    // It will move itself later
+                                }
+                                else
+                                {
+                                    // It's a player and it can't move
+                                    return false;
+                                }
+                            }
+                          
+                        }
+                    }
+                
                     // If we have items to evaluate
                     if (move.Count > 0)
                     {
