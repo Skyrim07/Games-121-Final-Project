@@ -15,12 +15,20 @@ public class BabaObject : GridItem
     [HideInInspector] public SpriteRenderer myren; // Reference to renderer
 
     // References to things we might look like
-    public Sprite Baba;
-    public Sprite Rock;
-    public Sprite Wall;
-    public Sprite Flag;
-    public Sprite Death;
+    private Sprite Baba;
+    private Sprite Rock;
+    private Sprite Wall;
+    private Sprite Flag;
+    private Sprite Death;
 
+    private void Awake()
+    {
+        Baba = References.instance.Baba;
+        Rock = References.instance.Rock;
+        Wall = References.instance.Wall;
+        Flag = References.instance.Flag;
+        Death = References.instance.Death;
+    }
     public override void Start()
     {
         base.Start();
