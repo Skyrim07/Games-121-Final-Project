@@ -14,6 +14,7 @@ EditorUserSettings:
     RecentlyUsedScenePath-2:
       value: 22424703114646680e0b0227036c72111f194a6439262f2434
       flags: 0
+<<<<<<< .merge_file_j6ZWAk
 <<<<<<< HEAD
     RecentlyUsedScenePath-3:
       value: 22424703114646680e0b0227036c731500121478623d28393930
@@ -23,6 +24,8 @@ EditorUserSettings:
       flags: 0
 =======
 >>>>>>> lily
+=======
+>>>>>>> .merge_file_ZxaYVK
     vcSharedLogLevel:
       value: 0d5e400f0650
       flags: 0
