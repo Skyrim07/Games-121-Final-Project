@@ -4,54 +4,32 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    // This class I hijacked, it now only stores the current global move counter
+
     [SerializeField]
+    // this has been deprecated
     public static List<GameState> savedStates = new List<GameState>();
 
-    void Start()
-    {
-        SaveGameState();
-    }
+    public int currentMove; // Global move counter
 
-    void LateUpdate()
-    {
-        if(Input.GetKeyDown(KeyCode.Z))
-        {
-            UndoMove();
-        }
-        // Matches Player Input
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            SaveGameState();
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            SaveGameState();
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            SaveGameState();
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            SaveGameState();
-        }
-    }
+    public bool pmove = false; 
 
-    public static void SaveGameState()
-    {
-        savedStates.Add(GameState.GetCurrentState());
-    }
 
-    public static void UndoMove()
+    void Update()
     {
-        if(savedStates.Count <= 1)
+        if (pmove == true) // Did someone move?
         {
-            Debug.Log("No moves to undo");
+            currentMove++;
         }
-        else
+
+        if (Input.GetKeyDown(KeyCode.Z)) // Did we undo?
         {
-            savedStates[savedStates.Count - 2].LoadGameState();
-            savedStates.RemoveAt(savedStates.Count - 1);
+            currentMove -= 1;
         }
+        if (currentMove < 0)
+        {
+            currentMove = 0;
+        }
+        pmove = false; 
     }
 }

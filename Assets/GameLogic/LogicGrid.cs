@@ -5,21 +5,37 @@ using UnityEngine;
 [System.Serializable]
 public struct Point
 {
-    public Vector2 pos;
-    public GameObject obj;
-    
-    public Point(Vector2 location, GameObject gobj)
+    // Points are what make up the grid
+
+    // Each point has a:
+    public Vector2 pos; //Position
+
+    public GameObject obj; // (Deprecated) object
+
+    public List<GameObject> localObjects; // List of inhabitant objects
+
+    // This is the constructor
+    public Point(Vector2 location, GameObject gobj, List<GameObject> newlist)
     {
         pos = location;
         obj = gobj;
+        localObjects = newlist;
     }
 }
 public class LogicGrid : MonoBehaviour
 {
+    // This class handles some general grid-construction stuff
+
+    // Scale of grid
     public int gridSpacing;
+
+    // Moves origin of grid
     public Vector2 gridOffset;
 
+    // How many points make up the grid along the X axis
     public int gridLength;
+
+    // The actual grid array
     public Point[] grid;
 
     // Just a visual queue, no functionality
@@ -28,8 +44,17 @@ public class LogicGrid : MonoBehaviour
     void Awake()
     {
         grid = new Point[gridLength * gridLength];
+        BuildGrid(); // Self explanatory
+    }
 
-        BuildGrid();
+    private IEnumerator Start()
+    {
+        // Coroutine due to some timing shenanigans
+        // We want this to run after everything else is set up
+
+        yield return new WaitForEndOfFrame();
+        RefreshLogic();
+        yield break;
     }
 
     public int NearestPoint(Vector2 pos) //Gives the nearest grid point for any position
@@ -60,16 +85,16 @@ public class LogicGrid : MonoBehaviour
 
         return (y * gridLength + x);
     }
+    // Allows other classes to add themselves onto the grid
     public void Register(int index, GameObject obj)
     {
-        if (grid[index].obj != null)
-        {
-            Debug.LogError("Object Overlap on cell " + index);
-        }
+        grid[index].localObjects.Add(obj);
         grid[index].obj = obj;
     }
+
     void BuildGrid()
     {
+        // Sets up the grid to our specifications
         gridOffset = new Vector2(-gridLength / 2, -gridLength / 2);
 
         for(int y = 0; y < gridLength; y++)
@@ -77,23 +102,28 @@ public class LogicGrid : MonoBehaviour
             for(int x = 0; x < gridLength; x++)
             {
                 Instantiate(marker, new Vector2(x * gridSpacing, y * gridSpacing) + gridOffset, transform.rotation, transform); 
-                grid[y * gridLength + x] = new Point(new Vector2(x * gridSpacing, y * gridSpacing) + gridOffset, null);
+                grid[y * gridLength + x] = new Point(new Vector2(x * gridSpacing, y * gridSpacing) + gridOffset, null, new List<GameObject>());
             }
         }
     }
 
+    // This resets everything back to default, we call this when the logic gets pushed around 
     public void RefreshLogic()
     {
-        // I know, this sucks ass
+        // This is a really slow way of doing this
         GameObject[] nouns = GameObject.FindGameObjectsWithTag("Noun");
+
         foreach(GameObject noun in nouns)
         {
+            // Reset all our objects
             noun.GetComponent<NounBlock>().RefreshTypes();
         }
 
+        // This is a really slow way of doing this
         GameObject[] ises = GameObject.FindGameObjectsWithTag("Is");
         foreach (GameObject block in ises)
         {
+            // Have our IS blocks generate new logic 
             block.GetComponent<IsBlock>().CheckActive();
         }
     }
