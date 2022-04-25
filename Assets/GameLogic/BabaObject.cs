@@ -134,6 +134,7 @@ public class BabaObject : GridItem
         // This just sets our sprite to whatever we want
         myren.enabled = true;
         currentApp = input;
+        myren.enabled = true; 
         switch (input)
         {
             case BlockAppearance.None:

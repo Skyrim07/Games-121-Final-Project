@@ -18,7 +18,7 @@ public class LevelManager : MonoSingleton<LevelManager>
 
     private void Start()
     {
-        //TODO: Change this after we have a main menu
+        curLevel = 1;
     }
 
     private void Update()
