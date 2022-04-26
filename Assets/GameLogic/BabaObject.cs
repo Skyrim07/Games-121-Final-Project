@@ -15,6 +15,7 @@ public class BabaObject : GridItem
     [HideInInspector] public SpriteRenderer myren; // Reference to renderer
 
     // References to things we might look like
+    private References refr;
     private Sprite Baba;
     private Sprite Rock;
     private Sprite Wall;
@@ -23,11 +24,12 @@ public class BabaObject : GridItem
 
     private void Awake()
     {
-        Baba = References.instance.Baba;
-        Rock = References.instance.Rock;
-        Wall = References.instance.Wall;
-        Flag = References.instance.Flag;
-        Death = References.instance.Death;
+        refr = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<References>();
+        Baba = refr.Baba;
+        Rock = refr.Rock;
+        Wall = refr.Wall;
+        Flag = refr.Flag;
+        Death = refr.Death;
     }
     public override void Start()
     {
