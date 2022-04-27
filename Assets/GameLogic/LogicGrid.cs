@@ -90,6 +90,7 @@ public class LogicGrid : MonoBehaviour
     {
         grid[index].localObjects.Add(obj);
         grid[index].obj = obj;
+        grid[index].obj.GetComponent<SpriteRenderer>().sortingOrder = -index / gridLength;
     }
 
     void BuildGrid()

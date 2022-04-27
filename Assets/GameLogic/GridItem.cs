@@ -65,11 +65,7 @@ public class GridItem : MonoBehaviour
     
     public virtual void LateUpdate() //Late to let GameManager class deincrement current save
     {
-        //If we're undoing on this frame, we want to load
-        if (Input.GetKeyDown(KeyCode.Z)) 
-        {
-            Load();
-        }
+
     }
 
     public void Load() 
@@ -153,7 +149,7 @@ public class GridItem : MonoBehaviour
         }
     }
 
-    void DoMove(int moveIndex)
+    public virtual void DoMove(int moveIndex)
     {
         // This function handles all the actual movement on the grid
 
