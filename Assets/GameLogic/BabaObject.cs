@@ -22,6 +22,9 @@ public class BabaObject : GridItem
     private Sprite Flag;
     private Sprite Death;
 
+    private Animator anim;
+    private Vector3 oScale;
+
     private void Awake()
     {
         refr = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<References>();
@@ -35,6 +38,8 @@ public class BabaObject : GridItem
     {
         base.Start();
         myren = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
+        oScale = transform.localScale;
         AssignAppearance(defaultBlock); // Set up our sprite
     }
     public override void LateUpdate()
@@ -43,6 +48,39 @@ public class BabaObject : GridItem
         PlayerUpdate(); // Check for player movement
     }
 
+    public override void DoMove(int moveIndex)
+    {
+        base.DoMove(moveIndex);
+        if (currentApp == BlockAppearance.Baba)
+        {
+            PlayerMoveAnim(moveIndex);
+            if (moveIndex == -1) //left
+            {
+                transform.localScale = new Vector3(-oScale.x, oScale.y, oScale.z);
+            }
+            else if (moveIndex == 1)
+            {
+                transform.localScale = oScale;
+            }
+        }
+    }
+
+    private void PlayerMoveAnim(int moveIndex)
+    {
+        if(Mathf.Abs(moveIndex)==1)
+            anim.Play("BabaWalk");
+        else
+        {
+            if (moveIndex > 0)
+            {
+                anim.Play("BabaWalkUp");
+            }
+            else
+            {
+                anim.Play("BabaWalkDown");
+            }
+        }
+    }
     public void UpdateTypeLogic()
     {
         // This update our block behaviors every time our related logic changes
@@ -82,19 +120,19 @@ public class BabaObject : GridItem
 
             if (Input.GetKeyDown(KeyCode.W))
             {
-                MoveIndex(gridMaster.gridLength, true, 9); 
+                MoveIndex(gridMaster.gridLength, true, 15); 
             }
             else if (Input.GetKeyDown(KeyCode.A))
             {
-                MoveIndex(-1, true, 9);
+                MoveIndex(-1, true, 15);
             }
             else if(Input.GetKeyDown(KeyCode.S))
             {
-                MoveIndex(-gridMaster.gridLength, true, 9);
+                MoveIndex(-gridMaster.gridLength, true, 15);
             }
             else if(Input.GetKeyDown(KeyCode.D))
             {
-                MoveIndex(1, true, 9);
+                MoveIndex(1, true, 15);
             }
         }
     }   
