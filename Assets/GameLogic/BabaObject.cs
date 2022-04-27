@@ -108,19 +108,19 @@ public class BabaObject : GridItem
 
             if (Input.GetKeyDown(KeyCode.W))
             {
-                MoveIndex(gridMaster.gridLength, true, 9); 
+                MoveIndex(gridMaster.gridLength, true, 15); 
             }
             else if (Input.GetKeyDown(KeyCode.A))
             {
-                MoveIndex(-1, true, 9);
+                MoveIndex(-1, true, 15);
             }
             else if(Input.GetKeyDown(KeyCode.S))
             {
-                MoveIndex(-gridMaster.gridLength, true, 9);
+                MoveIndex(-gridMaster.gridLength, true, 15);
             }
             else if(Input.GetKeyDown(KeyCode.D))
             {
-                MoveIndex(1, true, 9);
+                MoveIndex(1, true, 15);
             }
         }
     }   
