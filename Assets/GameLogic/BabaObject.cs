@@ -22,6 +22,9 @@ public class BabaObject : GridItem
     private Sprite Flag;
     private Sprite Death;
 
+    private Animator anim;
+    private Vector3 oScale;
+
     private void Awake()
     {
         refr = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<References>();
@@ -35,6 +38,8 @@ public class BabaObject : GridItem
     {
         base.Start();
         myren = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
+        oScale = transform.localScale;
         AssignAppearance(defaultBlock); // Set up our sprite
     }
     public override void LateUpdate()
@@ -43,6 +48,27 @@ public class BabaObject : GridItem
         PlayerUpdate(); // Check for player movement
     }
 
+    public override void DoMove(int moveIndex)
+    {
+        base.DoMove(moveIndex);
+        if (currentApp == BlockAppearance.Baba)
+        {
+            PlayerMoveAnim();
+            if (moveIndex == -1) //left
+            {
+                transform.localScale = new Vector3(-oScale.x, oScale.y, oScale.z);
+            }
+            else if (moveIndex == 1)
+            {
+                transform.localScale = oScale;
+            }
+        }
+    }
+
+    private void PlayerMoveAnim()
+    {
+        anim.Play("BabaWalk");
+    }
     public void UpdateTypeLogic()
     {
         // This update our block behaviors every time our related logic changes

@@ -149,7 +149,7 @@ public class GridItem : MonoBehaviour
         }
     }
 
-    void DoMove(int moveIndex)
+    public virtual void DoMove(int moveIndex)
     {
         // This function handles all the actual movement on the grid
 

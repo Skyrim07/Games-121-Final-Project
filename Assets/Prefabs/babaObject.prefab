@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4718027492527047683}
   - component: {fileID: 4718027492527047682}
   - component: {fileID: 4718027492527047685}
+  - component: {fileID: 3646526991494921235}
   m_Layer: 0
   m_Name: babaObject
   m_TagString: Untagged
@@ -109,11 +110,6 @@ MonoBehaviour:
   defaultBlock: 1
   currentApp: 0
   myren: {fileID: 0}
-  Baba: {fileID: -7650119137935736425, guid: d7ac3ec50c56f448382234f922804709, type: 3}
-  Rock: {fileID: 120768646595506803, guid: d7ac3ec50c56f448382234f922804709, type: 3}
-  Wall: {fileID: 3676349755029297504, guid: d7ac3ec50c56f448382234f922804709, type: 3}
-  Flag: {fileID: 8103823714585543130, guid: d7ac3ec50c56f448382234f922804709, type: 3}
-  Death: {fileID: 5112855929728678625, guid: d7ac3ec50c56f448382234f922804709, type: 3}
 --- !u!61 &4718027492527047682
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -153,3 +149,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+--- !u!95 &3646526991494921235
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4718027492527047684}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7ddf03a8fd8901b49ac1dff0e98f4c51, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
