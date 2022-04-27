@@ -53,7 +53,7 @@ public class BabaObject : GridItem
         base.DoMove(moveIndex);
         if (currentApp == BlockAppearance.Baba)
         {
-            PlayerMoveAnim();
+            PlayerMoveAnim(moveIndex);
             if (moveIndex == -1) //left
             {
                 transform.localScale = new Vector3(-oScale.x, oScale.y, oScale.z);
@@ -65,9 +65,21 @@ public class BabaObject : GridItem
         }
     }
 
-    private void PlayerMoveAnim()
+    private void PlayerMoveAnim(int moveIndex)
     {
-        anim.Play("BabaWalk");
+        if(Mathf.Abs(moveIndex)==1)
+            anim.Play("BabaWalk");
+        else
+        {
+            if (moveIndex > 0)
+            {
+                anim.Play("BabaWalkUp");
+            }
+            else
+            {
+                anim.Play("BabaWalkDown");
+            }
+        }
     }
     public void UpdateTypeLogic()
     {
