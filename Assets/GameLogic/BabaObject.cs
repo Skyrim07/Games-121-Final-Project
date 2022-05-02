@@ -78,11 +78,11 @@ public class BabaObject : GridItem
         {
             if (moveIndex > 0)
             {
-                anim.Play("BabaWalkUp");
+                anim.Play("BabaWalkUp", 0, 0);
             }
             else
             {
-                anim.Play("BabaWalkDown");
+                anim.Play("BabaWalkDown", 0, 0);
             }
         }
     }
