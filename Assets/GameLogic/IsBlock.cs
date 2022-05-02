@@ -161,16 +161,8 @@ public class IsBlock : GridItem
         foreach(BabaObject baba in OurNoun(n1)) // For every block in our target-noun
         {
 
-            // Apply the new sprites
-            if(OurNoun(n2).Count > 0)
-            {
-                baba.AssignAppearance(OurNoun(n2)[0].currentApp);
-            }
-            else
-            {
-                return;
-            }
-
+            // Apply new look
+            baba.AssignAppearance(n2.GetComponent<NounBlock>().currentApp);
 
             // Add objects to the target noun's list
             OurNoun(n2).Add(baba);
@@ -180,8 +172,11 @@ public class IsBlock : GridItem
 
             // And make sure that BabaObject is caught up
             baba.UpdateTypeLogic();
+
         }
+
         // Mark the effects ( for chaining purposes)
         n1.GetComponent<NounBlock>().effect = n2.GetComponent<NounBlock>().effect;
+        n1.GetComponent<NounBlock>().currentApp = n2.GetComponent<NounBlock>().currentApp;
     }
 }

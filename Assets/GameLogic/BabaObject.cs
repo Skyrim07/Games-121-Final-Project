@@ -9,11 +9,15 @@ public class BabaObject : GridItem
 
     //General variables
 
-    [Header("We dont need this.")]
+    [HideInInspector]
     public ObjectType babaType; //Current object behavior
-    [Header("We do need these.")]
+
+
     public BlockAppearance defaultBlock; // What kind of block we are by default
+
+    [HideInInspector]
     public BlockAppearance currentApp; // What we currently look like due to in-game hijinks
+
     [HideInInspector] public SpriteRenderer myren; // Reference to renderer
 
     // References to things we might look like
@@ -32,13 +36,13 @@ public class BabaObject : GridItem
 
     private void Awake()
     {
-        refr = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<References>();
         babaType = ObjectType.None;
-        Baba = refr.Baba;
-        Rock = refr.Rock;
-        Wall = refr.Wall;
-        Flag = refr.Flag;
-        Death = refr.Death;
+    }
+
+    public void Init()
+    {
+        myren = GetComponent<SpriteRenderer>();
+        AssignAppearance(defaultBlock);
     }
     public override void Start()
     {
@@ -192,8 +196,8 @@ public class BabaObject : GridItem
     }
     public void AssignAppearance(BlockAppearance input)
     {
+        refr = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<References>();
         // This just sets our sprite to whatever we want
-        myren.enabled = true;
         currentApp = input;
         myren.enabled = true; 
         switch (input)
@@ -202,19 +206,19 @@ public class BabaObject : GridItem
                 myren.enabled = false;
                 break;
             case BlockAppearance.Baba:
-                myren.sprite = Baba;
+                myren.sprite = refr.Baba;
                 break;
             case BlockAppearance.Rock:
-                myren.sprite = Rock;
+                myren.sprite = refr.Rock;
                 break;
             case BlockAppearance.Wall:
-                myren.sprite = Wall;
+                myren.sprite = refr.Wall;
                 break;
             case BlockAppearance.Flag:
-                myren.sprite = Flag;
+                myren.sprite = refr.Flag;
                 break;
             case BlockAppearance.Death:
-                myren.sprite = Death;
+                myren.sprite = refr.Death;
                 break;
 
         }

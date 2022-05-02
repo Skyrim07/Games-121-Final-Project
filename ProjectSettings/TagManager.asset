@@ -10,6 +10,8 @@ TagManager:
   - Is
   - GameManager
   - LevelManager
+  - Persistent
+  - Baba
   layers:
   - Default
   - TransparentFX
