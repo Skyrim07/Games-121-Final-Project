@@ -15,20 +15,71 @@ public class NounBlock: GridItem
 
     public BlockAppearance defaultBlock; // What this noun's blocks normally look like
 
+    [HideInInspector]
+    public BlockAppearance currentApp; //What this noun's blocks should now look like
+
+    [HideInInspector]
     public ObjectType effect; // The current effect this noun applies
 
-
+    private SpriteRenderer myren;
+    private References refr;
     public override void Start()
     {
+        base.Start();
+        Init();
+        RefreshTypes(); // Just to be safe
+    }
+
+    public void Init()
+    {
+        refr = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<References>();
         isLogicBlock = true;
         pushable = true;
-        base.Start();
-        RefreshTypes();
+        myren = GetComponent<SpriteRenderer>();
+        EditorRefresh();
+    }
+
+    public void AssignAppearance()
+    {
+        // This just sets our sprite to whatever we want
+        myren.enabled = true;
+        switch (defaultBlock)
+        {
+            case BlockAppearance.None:
+                myren.enabled = false;
+                break;
+            case BlockAppearance.Baba:
+                myren.sprite = refr.nBaba;
+                break;
+            case BlockAppearance.Rock:
+                myren.sprite = refr.nRock;
+                break;
+            case BlockAppearance.Wall:
+                myren.sprite = refr.nWall;
+                break;
+            case BlockAppearance.Flag:
+                myren.sprite = refr.nFlag;
+                break;
+            case BlockAppearance.Death:
+                myren.sprite = refr.nSkull;
+                break;
+
+        }
+    }
+    // Reset everything to default
+    // But don't touch anything that's initialized at start
+    public void EditorRefresh()
+    {
+        AssignAppearance();
+        currentApp = defaultBlock; // Clear our effects
+        effect = ObjectType.None; // Clear our effects
     }
 
     // Reset everything to default
     public void RefreshTypes()
     {
+        AssignAppearance();
+        currentApp = defaultBlock; // Clear our effects
         effect = ObjectType.None; // Clear our effects
 
         foreach (BabaObject baba in myBlock)

@@ -28,7 +28,7 @@ public class LevelManager : MonoSingleton<LevelManager>
 
         if (Input.GetKeyDown(KeyCode.K))
         {
-            LoadLevel(2);
+            LoadNextLevel();
         }
 
     }
@@ -73,10 +73,10 @@ public class LevelManager : MonoSingleton<LevelManager>
     {
         transitionAnim.SetBool(ANIM_APPEAR_BOOL, appear);
 
-        CommonUtils.InvokeAction(0.5f, () =>
-        {
-            onScreenFaded.Invoke();
-        });
+        //CommonUtils.InvokeAction(0.5f, () =>
+        //{
+        //    onScreenFaded.Invoke();
+        //});
     }
 
 }

@@ -45,8 +45,30 @@ public class LogicGrid : MonoBehaviour
 
     void Awake()
     {
+        if(markers.Count > 0)
+        {
+            //Editor shenanigans
+            foreach(GameObject mark in markers)
+            {
+                Destroy(mark);
+            }
+            markers.Clear();
+        }
+
         grid = new Point[gridLength * gridLength];
-        BuildGrid(); // Self explanatory
+        BuildGrid(false); // Build the grid for real
+    }
+    public void Init()
+    {
+        if (markers.Count > 0)
+        {
+            foreach (GameObject mark in markers)
+            {
+                DestroyImmediate(mark);
+            }
+        }
+        grid = new Point[gridLength * gridLength];
+        BuildGrid(true); // Only show me the markers, don't make the grid
     }
 
     private IEnumerator Start()
@@ -55,40 +77,39 @@ public class LogicGrid : MonoBehaviour
         // We want this to run after everything else is set up
         yield return new WaitForEndOfFrame();
         //LevelManager.instance.onScreenFaded += MarkLimits;//your function
-        RefreshLogic();
+        RefreshLogic(false);
         yield return new WaitForSeconds(0.6f);
         MarkLimits();
         yield break;
     }
 
-    private void MarkLimits()
+    public void MarkLimits()
     {
-        Debug.Log(markers.Count);
         foreach(GameObject mark in markers)
         {
             if(mark == null)
             {
-                Debug.Log("mark is null");
+                //Debug.Log("mark is null");
                 continue;
             }
             mark.GetComponent<SpriteRenderer>().sortingOrder = 999;
             if (!mark.GetComponent<SpriteRenderer>().isVisible)
             {
-                Debug.Log("mark not spotted");
+                //Debug.Log("mark not spotted");
                 if(!mark.TryGetComponent<BabaObject>(out BabaObject baba))
                 {
                     baba = mark.AddComponent<BabaObject>();
                 }
                 baba.babaType = ObjectType.None;
-                baba.defaultBlock = BlockAppearance.Wall;
+                baba.defaultBlock = BlockAppearance.None;
                 baba.locked = true;
                 baba.mark = true;
             }
             else
             {
-                Debug.Log("mark spotted");
+                //Debug.Log("mark spotted");
             }
-            mark.GetComponent<SpriteRenderer>().sortingOrder = 0;
+            mark.GetComponent<SpriteRenderer>().sortingOrder = -1;
         }
 
     }
@@ -134,7 +155,7 @@ public class LogicGrid : MonoBehaviour
       
     }
 
-    void BuildGrid()
+    void BuildGrid(bool editor)
     {
         // Sets up the grid to our specifications
         gridOffset = new Vector2(-gridLength / 2, -gridLength / 2);
@@ -143,22 +164,41 @@ public class LogicGrid : MonoBehaviour
         {
             for(int x = 0; x < gridLength; x++)
             {
+               
                 markers.Add(Instantiate(marker, new Vector2(x * gridSpacing, y * gridSpacing) + gridOffset, transform.rotation, transform));
-                grid[y * gridLength + x] = new Point(new Vector2(x * gridSpacing, y * gridSpacing) + gridOffset, null, new List<GameObject>());
+
+                if (!editor)
+                {
+                    grid[y * gridLength + x] = new Point(new Vector2(x * gridSpacing, y * gridSpacing) + gridOffset, null, new List<GameObject>());
+                }
+               
             }
         }
     }
 
     // This resets everything back to default, we call this when the logic gets pushed around 
-    public void RefreshLogic()
+    public void RefreshLogic(bool editor)
     {
         // This is a really slow way of doing this
         GameObject[] nouns = GameObject.FindGameObjectsWithTag("Noun");
 
-        foreach(GameObject noun in nouns)
+        if (editor) //If we're only doing this for the editor
         {
-            // Reset all our objects
-            noun.GetComponent<NounBlock>().RefreshTypes();
+            foreach (GameObject noun in nouns)
+            {
+                // Reset all our objects
+                noun.GetComponent<NounBlock>().Init(); //Same as refresh types, but editor-safe
+            }
+            return; //Don't bother with checking is
+        }
+        else
+        {
+
+            foreach (GameObject noun in nouns)
+            {
+                // Reset all our objects
+                noun.GetComponent<NounBlock>().RefreshTypes(); //Same as refresh types, but editor-safe
+            }
         }
 
         // This is a really slow way of doing this

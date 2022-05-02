@@ -112,7 +112,7 @@ public class GridItem : MonoBehaviour
     {
         // This is to make sure all logic stuff is handled after movement
         yield return new WaitForEndOfFrame();
-        gridMaster.RefreshLogic();
+        gridMaster.RefreshLogic(false);
         yield break;
     }
 
@@ -198,7 +198,6 @@ public class GridItem : MonoBehaviour
 
                                     }
                                     // Did we win?
-                                    Debug.Log(bbj2.babaType);
                                     if (bbj2.babaType == ObjectType.Win)
                                     {
                                         Debug.Log("Win");
