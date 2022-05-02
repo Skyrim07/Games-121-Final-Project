@@ -67,8 +67,10 @@ public class BabaObject : GridItem
 
     private void PlayerMoveAnim(int moveIndex)
     {
-        if(Mathf.Abs(moveIndex)==1)
-            anim.Play("BabaWalk");
+        if (Mathf.Abs(moveIndex) == 1)
+        {
+            anim.Play("BabaWalk", 0, 0);
+        }
         else
         {
             if (moveIndex > 0)
