@@ -162,7 +162,15 @@ public class IsBlock : GridItem
         {
 
             // Apply the new sprites
-            baba.AssignAppearance(OurNoun(n2)[0].currentApp);
+            if(OurNoun(n2).Count > 0)
+            {
+                baba.AssignAppearance(OurNoun(n2)[0].currentApp);
+            }
+            else
+            {
+                return;
+            }
+
 
             // Add objects to the target noun's list
             OurNoun(n2).Add(baba);
