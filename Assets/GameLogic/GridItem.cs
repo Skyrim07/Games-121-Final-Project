@@ -198,8 +198,10 @@ public class GridItem : MonoBehaviour
 
                                     }
                                     // Did we win?
+                                    Debug.Log(bbj2.babaType);
                                     if (bbj2.babaType == ObjectType.Win)
                                     {
+                                        Debug.Log("Win");
                                         levelManager.LoadNextLevel();
                                     }
                                 }

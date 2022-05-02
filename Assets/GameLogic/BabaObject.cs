@@ -27,6 +27,9 @@ public class BabaObject : GridItem
     private Animator anim;
     private Vector3 oScale;
 
+    [HideInInspector]
+    public bool mark;
+
     private void Awake()
     {
         refr = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<References>();
@@ -89,6 +92,11 @@ public class BabaObject : GridItem
     public void UpdateTypeLogic()
     {
         // This update our block behaviors every time our related logic changes
+        if (mark)
+        {
+            return;
+        }
+            
         ObstacleUpdate();
         NoneUpdate();
         PushUpdate();

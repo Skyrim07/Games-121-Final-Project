@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +12,8 @@ public class LevelManager : MonoSingleton<LevelManager>
 
     //Current playing level, start from 1
     public int curLevel;
+
+    public Action onScreenFaded;
 
     //References
     [SerializeField] Animator transitionAnim; //The black screen animator
@@ -70,6 +72,11 @@ public class LevelManager : MonoSingleton<LevelManager>
     public void SetTransition(bool appear)
     {
         transitionAnim.SetBool(ANIM_APPEAR_BOOL, appear);
+
+        CommonUtils.InvokeAction(0.5f, () =>
+        {
+            onScreenFaded.Invoke();
+        });
     }
 
 }
