@@ -193,7 +193,6 @@ public class GridItem : MonoBehaviour
                                                 g.GetComponent<GridItem>().QueueReset();
                                             }
                                         }
-                                        print("Die!");
                                      
                                         return; // Don't need to execute the move anymore
 
@@ -202,7 +201,6 @@ public class GridItem : MonoBehaviour
                                     if (bbj2.babaType == ObjectType.Win)
                                     {
                                         levelManager.LoadNextLevel();
-                                        print("Win!");
                                     }
                                 }
                             }

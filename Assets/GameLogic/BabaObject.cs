@@ -9,7 +9,9 @@ public class BabaObject : GridItem
 
     //General variables
 
+    [Header("We dont need this.")]
     public ObjectType babaType; //Current object behavior
+    [Header("We do need these.")]
     public BlockAppearance defaultBlock; // What kind of block we are by default
     public BlockAppearance currentApp; // What we currently look like due to in-game hijinks
     [HideInInspector] public SpriteRenderer myren; // Reference to renderer
@@ -28,6 +30,7 @@ public class BabaObject : GridItem
     private void Awake()
     {
         refr = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<References>();
+        babaType = ObjectType.None;
         Baba = refr.Baba;
         Rock = refr.Rock;
         Wall = refr.Wall;
@@ -67,8 +70,10 @@ public class BabaObject : GridItem
 
     private void PlayerMoveAnim(int moveIndex)
     {
-        if(Mathf.Abs(moveIndex)==1)
-            anim.Play("BabaWalk");
+        if (Mathf.Abs(moveIndex) == 1)
+        {
+            anim.Play("BabaWalk", 0, 0);
+        }
         else
         {
             if (moveIndex > 0)

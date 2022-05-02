@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3229232788151067440}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 4.1627507, y: 2.3343616, z: 1.4663427}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 12762ed3fb40b44d6885f892b18b9095, type: 3}
-  m_Color: {r: 0.33490568, g: 0.42298353, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -109,11 +109,6 @@ MonoBehaviour:
   defaultBlock: 2
   currentApp: 0
   myren: {fileID: 0}
-  Baba: {fileID: -7650119137935736425, guid: d7ac3ec50c56f448382234f922804709, type: 3}
-  Rock: {fileID: 120768646595506803, guid: d7ac3ec50c56f448382234f922804709, type: 3}
-  Wall: {fileID: 3676349755029297504, guid: d7ac3ec50c56f448382234f922804709, type: 3}
-  Flag: {fileID: 8103823714585543130, guid: d7ac3ec50c56f448382234f922804709, type: 3}
-  Death: {fileID: 5112855929728678625, guid: d7ac3ec50c56f448382234f922804709, type: 3}
 --- !u!61 &3229232788151067441
 BoxCollider2D:
   m_ObjectHideFlags: 0

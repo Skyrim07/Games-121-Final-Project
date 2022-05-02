@@ -53,7 +53,7 @@ public class LevelManager : MonoSingleton<LevelManager>
         {
             curLevel = level;
 
-            SceneManager.LoadScene($"Level{level}"); //Actually load the level
+            SceneManager.LoadScene($"Level{level+1}"); //Actually load the level
 
             //Turn off the black screen after the scene is loaded
             CommonUtils.InvokeAction(1f, () =>
