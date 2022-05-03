@@ -9,9 +9,15 @@ public class BabaObject : GridItem
 
     //General variables
 
+    [HideInInspector]
     public ObjectType babaType; //Current object behavior
+
+
     public BlockAppearance defaultBlock; // What kind of block we are by default
+
+    [HideInInspector]
     public BlockAppearance currentApp; // What we currently look like due to in-game hijinks
+
     [HideInInspector] public SpriteRenderer myren; // Reference to renderer
 
     // References to things we might look like
@@ -25,14 +31,18 @@ public class BabaObject : GridItem
     private Animator anim;
     private Vector3 oScale;
 
+    [HideInInspector]
+    public bool mark;
+
     private void Awake()
     {
-        refr = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<References>();
-        Baba = refr.Baba;
-        Rock = refr.Rock;
-        Wall = refr.Wall;
-        Flag = refr.Flag;
-        Death = refr.Death;
+        babaType = ObjectType.None;
+    }
+
+    public void Init()
+    {
+        myren = GetComponent<SpriteRenderer>();
+        AssignAppearance(defaultBlock);
     }
     public override void Start()
     {
@@ -67,23 +77,30 @@ public class BabaObject : GridItem
 
     private void PlayerMoveAnim(int moveIndex)
     {
-        if(Mathf.Abs(moveIndex)==1)
-            anim.Play("BabaWalk");
+        if (Mathf.Abs(moveIndex) == 1)
+        {
+            anim.Play("BabaWalk", 0, 0);
+        }
         else
         {
             if (moveIndex > 0)
             {
-                anim.Play("BabaWalkUp");
+                anim.Play("BabaWalkUp", 0, 0);
             }
             else
             {
-                anim.Play("BabaWalkDown");
+                anim.Play("BabaWalkDown", 0, 0);
             }
         }
     }
     public void UpdateTypeLogic()
     {
         // This update our block behaviors every time our related logic changes
+        if (mark)
+        {
+            return;
+        }
+            
         ObstacleUpdate();
         NoneUpdate();
         PushUpdate();
@@ -179,8 +196,8 @@ public class BabaObject : GridItem
     }
     public void AssignAppearance(BlockAppearance input)
     {
+        refr = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<References>();
         // This just sets our sprite to whatever we want
-        myren.enabled = true;
         currentApp = input;
         myren.enabled = true; 
         switch (input)
@@ -189,19 +206,19 @@ public class BabaObject : GridItem
                 myren.enabled = false;
                 break;
             case BlockAppearance.Baba:
-                myren.sprite = Baba;
+                myren.sprite = refr.Baba;
                 break;
             case BlockAppearance.Rock:
-                myren.sprite = Rock;
+                myren.sprite = refr.Rock;
                 break;
             case BlockAppearance.Wall:
-                myren.sprite = Wall;
+                myren.sprite = refr.Wall;
                 break;
             case BlockAppearance.Flag:
-                myren.sprite = Flag;
+                myren.sprite = refr.Flag;
                 break;
             case BlockAppearance.Death:
-                myren.sprite = Death;
+                myren.sprite = refr.Death;
                 break;
 
         }

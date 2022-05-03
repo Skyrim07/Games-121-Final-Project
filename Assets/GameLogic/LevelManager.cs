@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +13,8 @@ public class LevelManager : MonoSingleton<LevelManager>
     //Current playing level, start from 1
     public int curLevel;
 
+    public Action onScreenFaded;
+
     //References
     [SerializeField] Animator transitionAnim; //The black screen animator
 
@@ -26,7 +28,7 @@ public class LevelManager : MonoSingleton<LevelManager>
 
         if (Input.GetKeyDown(KeyCode.K))
         {
-            LoadLevel(2);
+            LoadNextLevel();
         }
 
     }
@@ -53,7 +55,7 @@ public class LevelManager : MonoSingleton<LevelManager>
         {
             curLevel = level;
 
-            SceneManager.LoadScene($"Level{level}"); //Actually load the level
+            SceneManager.LoadScene($"Level{level+1}"); //Actually load the level
 
             //Turn off the black screen after the scene is loaded
             CommonUtils.InvokeAction(1f, () =>
@@ -70,6 +72,11 @@ public class LevelManager : MonoSingleton<LevelManager>
     public void SetTransition(bool appear)
     {
         transitionAnim.SetBool(ANIM_APPEAR_BOOL, appear);
+
+        //CommonUtils.InvokeAction(0.5f, () =>
+        //{
+        //    onScreenFaded.Invoke();
+        //});
     }
 
 }

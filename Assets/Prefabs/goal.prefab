@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3238844847267302804}
   m_Layer: 0
   m_Name: goal
-  m_TagString: Untagged
+  m_TagString: Baba
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,6 +109,7 @@ MonoBehaviour:
   defaultBlock: 4
   currentApp: 0
   myren: {fileID: 0}
+  mark: 0
 --- !u!61 &3238844847267302805
 BoxCollider2D:
   m_ObjectHideFlags: 0
