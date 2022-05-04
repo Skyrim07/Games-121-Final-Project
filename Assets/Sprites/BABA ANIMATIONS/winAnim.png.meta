@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: fba39cbbd491348148245f41fb32ef06
+guid: 88a9d1df647c34536893b5db8fefcf89
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5788647103745249417
-    second: wordsAnimated_1
+      213: 2199422706184075226
+    second: winAnim_0
   - first:
-      213: 3203577646463518841
-    second: wordsAnimated_2
+      213: 4958578468553875317
+    second: winAnim_1
+  - first:
+      213: 882268049434513612
+    second: winAnim_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -109,64 +112,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wordsAnimated_0
+      name: winAnim_0
       rect:
         serializedVersion: 2
-        x: 3966
+        x: 0
         y: 0
-        width: 566
-        height: 692
+        width: 746
+        height: 705
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 06bca71a40c7816d0800000000000000
-      internalID: -3019527190821024928
+      spriteID: ad7b7095c4be58e10800000000000000
+      internalID: 2199422706184075226
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wordsAnimated_1
+      name: winAnim_1
       rect:
         serializedVersion: 2
-        x: 4531
+        x: 746
         y: 0
-        width: 551
-        height: 689
+        width: 746
+        height: 705
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 77fab23f0289aafa0800000000000000
-      internalID: -5788647103745249417
+      spriteID: 57fdd0178d860d440800000000000000
+      internalID: 4958578468553875317
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wordsAnimated_2
+      name: winAnim_2
       rect:
         serializedVersion: 2
-        x: 5109
+        x: 1492
         y: 0
-        width: 575
-        height: 692
+        width: 746
+        height: 705
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 97807db65e4657c20800000000000000
-      internalID: 3203577646463518841
+      spriteID: cc09833dd127e3c00800000000000000
+      internalID: 882268049434513612
       vertices: []
       indices: 
       edges: []
