@@ -64,11 +64,7 @@ public class GridItem : MonoBehaviour
         Moves.Add(new Move(gamemanager.currentMove, ourGridIndex));
     }
 
-    
-    public virtual void LateUpdate() //Late to let GameManager class deincrement current save
-    {
-
-    }
+   
 
     public void Load() 
     {
@@ -97,12 +93,6 @@ public class GridItem : MonoBehaviour
                 ourGridIndex = Moves[Moves.Count - 1].index;
                 transform.position = gridMaster.grid[ourGridIndex].pos;
                 gridMaster.grid[ourGridIndex].localObjects.Add(gameObject);
-
-                // Refresh logic if we're a logic block
-                if (isLogicBlock)
-                {
-                    StartCoroutine(WaitRefresh());
-                }
             }
 
         }
@@ -152,7 +142,6 @@ public class GridItem : MonoBehaviour
     public virtual void DoMove(int moveIndex)
     {
         // This function handles all the actual movement on the grid
-
         gamemanager.pmove = true; // Lets the GameManager class know it needs to save this tick
 
         // Makes sure we know where we are
@@ -164,7 +153,7 @@ public class GridItem : MonoBehaviour
             // Possibly redundant check to make sure our destination is valid
             if (!gridMaster.grid[ourGridIndex + moveIndex].Equals(null))
             {
-                // Grid points can have multiple inhabitands, so we're going to loop through all of them
+                // Grid points can have multiple inhabitants, so we're going to loop through all of them
                 foreach (var item in gridMaster.grid[ourGridIndex].localObjects)
                 {
                     // Check if the item is a BabaObject (like a rock, or a wall, NOT a logic block)
@@ -182,18 +171,11 @@ public class GridItem : MonoBehaviour
                                     // Are we dead?
                                     if (bbj2.babaType == ObjectType.Killer)
                                     {
-                                        // We're dead, reset the level to the start position
-                                        gamemanager.currentMove = 0;
-
-                                        // Tell every grid item on every grid point to reset
-                                        foreach (Point p in gridMaster.grid)
-                                        {
-                                            foreach (GameObject g in p.localObjects)
-                                            {
-                                                g.GetComponent<GridItem>().QueueReset();
-                                            }
-                                        }
-                                     
+                                        //todo player death
+                                        bbj.dead = true;
+                                        bbj.diemove = gamemanager.currentMove;
+                                        bbj.RefreshType(ObjectType.None, true);
+                                        bbj.AssignAppearance(BlockAppearance.None);
                                         return; // Don't need to execute the move anymore
 
                                     }

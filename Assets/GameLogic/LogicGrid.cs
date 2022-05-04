@@ -109,7 +109,7 @@ public class LogicGrid : MonoBehaviour
             {
                 //Debug.Log("mark spotted");
             }
-            mark.GetComponent<SpriteRenderer>().sortingOrder = -1;
+            mark.GetComponent<SpriteRenderer>().sortingOrder = -100;
         }
 
     }
