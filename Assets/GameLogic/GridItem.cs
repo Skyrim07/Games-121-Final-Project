@@ -35,6 +35,8 @@ public class GridItem : MonoBehaviour
 
     public GameManager gamemanager;
 
+    [HideInInspector]
+    public bool mark;
 
     public virtual void Start()
     {
@@ -79,7 +81,7 @@ public class GridItem : MonoBehaviour
         // E. Refresh logic if we're a logic block
 
         // Check if we CAN load
-        if (Moves.Count > 1)
+        if (Moves.Count > 1 && !mark)
         {
             // Check if we need to load
             if (gamemanager.currentMove == Moves[Moves.Count - 1].movenum)
@@ -135,11 +137,9 @@ public class GridItem : MonoBehaviour
     // This resets every block to the starting position
     public void Die()
     {
-        Debug.Log(Moves.Count + " " + gameObject.name);
         // Prevents redundant loading by only resetting if it has moved
         if(Moves.Count > 1)
         {
-            Debug.Log("resetting pos");
             gamemanager.currentMove = 0;
             Move firstMove = Moves[0]; // Gets us a reference to the start position
             Moves.Clear(); // Clears local move history
@@ -159,7 +159,7 @@ public class GridItem : MonoBehaviour
         ourGridIndex = gridMaster.NearestPoint(transform.position);
 
         // Check to make sure we don't go out of bounds
-        if ((ourGridIndex + moveIndex) > 0 && (ourGridIndex + moveIndex) < gridMaster.grid.Length)
+        if ((ourGridIndex + moveIndex) > 0 && (ourGridIndex + moveIndex) < gridMaster.grid.Length && !mark)
         {
             // Possibly redundant check to make sure our destination is valid
             if (!gridMaster.grid[ourGridIndex + moveIndex].Equals(null))

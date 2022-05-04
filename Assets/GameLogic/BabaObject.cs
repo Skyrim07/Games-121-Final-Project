@@ -31,8 +31,7 @@ public class BabaObject : GridItem
     private Animator anim;
     private Vector3 oScale;
 
-    [HideInInspector]
-    public bool mark;
+
 
     private void Awake()
     {
