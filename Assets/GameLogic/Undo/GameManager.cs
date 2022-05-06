@@ -18,20 +18,36 @@ public class GameManager : MonoBehaviour
 
     private float zTimer = 0, zStartTimer=0, zInterval =0.08f;
 
+    private LogicGrid lg;
+
     private void Start()
     {
         LoadGridItems();
+        lg = GameObject.FindGameObjectWithTag("GridManager").GetComponent<LogicGrid>(); 
     }
     public static void LoadGridItems()
     {
         gridItems = GameObject.FindObjectsOfType<GridItem>();
     }
+    
     private static void UndoGridItems()
     {
-        foreach(GridItem item in gridItems)
+        GameManager me = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        LogicGrid lg = GameObject.FindGameObjectWithTag("GridManager").GetComponent<LogicGrid>();
+        foreach (GridItem item in gridItems)
         {
+            if (item.TryGetComponent(out BabaObject baba))
+            {
+                if (baba.dead && baba.diemove == me.currentMove)
+                {
+                    baba.dead = false;
+                    baba.diemove = 0;
+                }
+            }
             item.Load();
+           
         }
+        lg.RefreshLogic(false);
     }
 
     void Update()
@@ -54,6 +70,7 @@ public class GameManager : MonoBehaviour
             UndoGridItems();
         }
 
+
         if (Input.GetKey(KeyCode.Z))
         {
             zStartTimer += Time.deltaTime;
@@ -74,6 +91,23 @@ public class GameManager : MonoBehaviour
                 UndoGridItems();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            // We're dead, reset the level to the start position
+            currentMove = 0;
+
+            // Tell every grid item on every grid point to reset
+            foreach (GridItem g in gridItems)
+            {
+                if(g.TryGetComponent(out BabaObject baba))
+                {
+                    baba.dead = false;
+                }
+                g.QueueReset();
+            }
+        }
+
 
         if (currentMove < 0)
         {

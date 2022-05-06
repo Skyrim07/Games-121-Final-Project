@@ -31,8 +31,9 @@ public class BabaObject : GridItem
     private Animator anim;
     private Vector3 oScale;
 
-    [HideInInspector]
-    public bool mark;
+
+    public bool dead;
+    public int diemove;
 
     private void Awake()
     {
@@ -52,9 +53,8 @@ public class BabaObject : GridItem
         oScale = transform.localScale;
         AssignAppearance(defaultBlock); // Set up our sprite
     }
-    public override void LateUpdate()
+    public void LateUpdate()
     {
-        base.LateUpdate();
         PlayerUpdate(); // Check for player movement
     }
 
@@ -109,6 +109,7 @@ public class BabaObject : GridItem
 
     public void RefreshType(ObjectType ntype, bool appOverride)
     {
+
         // This lets other classes update us on what to look like
         // And how to behave
 
@@ -116,7 +117,7 @@ public class BabaObject : GridItem
 
         UpdateTypeLogic(); // Refresh behavior
 
-        if (appOverride) // appOverride just lets us know if we're reseting to default
+        if (appOverride && !dead) // appOverride just lets us know if we're reseting to default
         {
             AssignAppearance(defaultBlock); //Reset our appearance
         }
@@ -125,7 +126,7 @@ public class BabaObject : GridItem
 
     private void PlayerUpdate()
     {
-        if (babaType == ObjectType.Player)
+        if (babaType == ObjectType.Player && !dead)
         {
             // Matches Player Input
 
