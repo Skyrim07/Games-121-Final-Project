@@ -9,6 +9,7 @@ public class References : MonoSingleton<References>
     public Sprite Rock;
     public Sprite Flag;
     public Sprite Death;
+    public Sprite Bush;
 
 
     public Sprite nBaba;
@@ -16,6 +17,7 @@ public class References : MonoSingleton<References>
     public Sprite nRock;
     public Sprite nFlag;
     public Sprite nSkull;
+    public Sprite nBush;
 
     public Sprite vPlayer;
     public Sprite vObstacle;

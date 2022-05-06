@@ -63,6 +63,9 @@ public class NounBlock: GridItem
             case BlockAppearance.Death:
                 myren.sprite = refr.nSkull;
                 break;
+            case BlockAppearance.Bush:
+                myren.sprite = refr.nBush;
+                break;
 
         }
     }
