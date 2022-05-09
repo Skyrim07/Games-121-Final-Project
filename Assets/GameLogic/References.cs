@@ -24,4 +24,6 @@ public class References : MonoSingleton<References>
     public Sprite vPushable;
     public Sprite vWin;
     public Sprite vKill;
+
+    public GameObject particleBaba;
 }

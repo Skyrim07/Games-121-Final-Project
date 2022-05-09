@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using SKCell;
 public class BabaObject : GridItem
 {
     // This class handles most object behaviors and appearance stuff
@@ -60,9 +61,35 @@ public class BabaObject : GridItem
 
     public override void DoMove(int moveIndex)
     {
-        base.DoMove(moveIndex);
         if (currentApp == BlockAppearance.Baba)
         {
+            GameObject fx = Instantiate(References.instance.particleBaba, transform.position, Quaternion.identity);
+            Vector2 dir;
+            if (moveIndex == 1)
+            {
+                dir = Vector2.left;
+            }
+            else if (moveIndex == -1)
+            {
+                dir = Vector2.right;
+            }
+            else if (moveIndex > 0)
+            {
+                dir = Vector2.down;
+            }
+            else
+            {
+                dir = Vector2.up;
+            }
+            CommonUtils.StartProcedure(SKCurve.LinearIn, 1f, (f) =>
+            {
+                fx.transform.Translate(dir * Time.deltaTime * 1.5f);
+            });
+            CommonUtils.InvokeAction(2f, () =>
+            {
+                Destroy(fx);
+            });
+            base.DoMove(moveIndex);
             PlayerMoveAnim(moveIndex);
             if (moveIndex == -1) //left
             {
@@ -73,10 +100,15 @@ public class BabaObject : GridItem
                 transform.localScale = oScale;
             }
         }
+        else
+        {
+            base.DoMove(moveIndex);
+        }
     }
 
     private void PlayerMoveAnim(int moveIndex)
     {
+
         if (Mathf.Abs(moveIndex) == 1)
         {
             anim.Play("BabaWalk", 0, 0);
