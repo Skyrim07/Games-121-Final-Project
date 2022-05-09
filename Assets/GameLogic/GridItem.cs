@@ -160,7 +160,7 @@ public class GridItem : MonoBehaviour
                     if (item.TryGetComponent<BabaObject>(out BabaObject bbj))
                     {
                         // Check to see if we're player controlled
-                        if (bbj.babaType == ObjectType.Player)
+                        if (bbj.babaType == ObjectType.Player && !bbj.dead)
                         {
                             // Loop through all the objects on our destination square
                             foreach (var item2 in gridMaster.grid[ourGridIndex + moveIndex].localObjects)
@@ -171,6 +171,7 @@ public class GridItem : MonoBehaviour
                                     // Are we dead?
                                     if (bbj2.babaType == ObjectType.Killer)
                                     {
+                                        LevelManager.instance.DieSound();
                                         //todo player death
                                         bbj.dead = true;
                                         bbj.diemove = gamemanager.currentMove;

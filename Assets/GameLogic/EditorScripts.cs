@@ -11,8 +11,12 @@ public class EditorScripts : MonoBehaviour
     {
         if (!Application.isPlaying)
         {
-            lm = GameObject.FindGameObjectWithTag("GridManager").GetComponent<LogicGrid>();
-            lm.Init();
+            if (GameObject.FindGameObjectWithTag("GridManager") != null)
+            {
+                lm = GameObject.FindGameObjectWithTag("GridManager").GetComponent<LogicGrid>();
+                lm.Init();
+            }
+
             //lm.MarkLimits();
         }
     }
@@ -22,27 +26,31 @@ public class EditorScripts : MonoBehaviour
     {
         if (!Application.isPlaying)
         {
-            lm = GameObject.FindGameObjectWithTag("GridManager").GetComponent<LogicGrid>();
-            lm.RefreshLogic(true);
-
-            if(lm.markers.Count > lm.gridLength * lm.gridLength + 1)
+          
+            if(lm != null)
             {
-                Debug.Log("clearing excess grid-markers");
-                lm.Init();
-            }
-            GameObject[] verbs = GameObject.FindGameObjectsWithTag("Verb");
+                lm.RefreshLogic(true);
 
-            foreach (GameObject verb in verbs)
-            {
-                verb.GetComponent<VerbBlock>().Init();
-            }
+                if (lm.markers.Count > lm.gridLength * lm.gridLength + 1)
+                {
+                    Debug.Log("clearing excess grid-markers");
+                    lm.Init();
+                }
+                GameObject[] verbs = GameObject.FindGameObjectsWithTag("Verb");
 
-            GameObject[] babas = GameObject.FindGameObjectsWithTag("Baba");
+                foreach (GameObject verb in verbs)
+                {
+                    verb.GetComponent<VerbBlock>().Init();
+                }
 
-            foreach (GameObject baba in babas)
-            {
-                baba.GetComponent<BabaObject>().Init();
+                GameObject[] babas = GameObject.FindGameObjectsWithTag("Baba");
+
+                foreach (GameObject baba in babas)
+                {
+                    baba.GetComponent<BabaObject>().Init();
+                }
             }
+            
         }
         
     }
