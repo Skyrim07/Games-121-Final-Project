@@ -165,7 +165,7 @@ public class LogicGrid : MonoBehaviour
             for(int x = 0; x < gridLength; x++)
             {
                
-                markers.Add(Instantiate(marker, new Vector2(x * gridSpacing, y * gridSpacing) + gridOffset, transform.rotation, transform));
+                //markers.Add(Instantiate(marker, new Vector2(x * gridSpacing, y * gridSpacing) + gridOffset, transform.rotation, transform));
 
                 if (!editor)
                 {
