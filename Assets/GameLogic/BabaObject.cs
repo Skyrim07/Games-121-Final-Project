@@ -138,19 +138,19 @@ public class BabaObject : GridItem
 
             if (Input.GetKeyDown(KeyCode.W))
             {
-                MoveIndex(gridMaster.gridLength, true, 15); 
+                MoveIndex(gridMaster.gridLength, true, 30); 
             }
             else if (Input.GetKeyDown(KeyCode.A))
             {
-                MoveIndex(-1, true, 15);
+                MoveIndex(-1, true, 30);
             }
             else if(Input.GetKeyDown(KeyCode.S))
             {
-                MoveIndex(-gridMaster.gridLength, true, 15);
+                MoveIndex(-gridMaster.gridLength, true, 30);
             }
             else if(Input.GetKeyDown(KeyCode.D))
             {
-                MoveIndex(1, true, 15);
+                MoveIndex(1, true, 30);
             }
         }
     }   
@@ -205,24 +205,31 @@ public class BabaObject : GridItem
         {
             case BlockAppearance.None:
                 myren.enabled = false;
+                myren.sortingOrder = -10;
                 break;
             case BlockAppearance.Baba:
                 myren.sprite = refr.Baba;
+                myren.sortingOrder = 10;
                 break;
             case BlockAppearance.Rock:
                 myren.sprite = refr.Rock;
+                myren.sortingOrder = 2;
                 break;
             case BlockAppearance.Wall:
                 myren.sprite = refr.Wall;
+                myren.sortingOrder = 1;
                 break;
             case BlockAppearance.Flag:
                 myren.sprite = refr.Flag;
+                myren.sortingOrder = 9;
                 break;
             case BlockAppearance.Death:
                 myren.sprite = refr.Death;
+                myren.sortingOrder = 8;
                 break;
             case BlockAppearance.Bush:
                 myren.sprite = refr.Bush;
+                myren.sortingOrder = 7;
                 break;
 
         }

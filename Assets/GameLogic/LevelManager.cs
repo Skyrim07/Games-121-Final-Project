@@ -15,20 +15,71 @@ public class LevelManager : MonoSingleton<LevelManager>
 
     public Action onScreenFaded;
 
+    public AudioSource src;
+    public AudioSource src2;
+    public AudioClip menu;
+    public AudioClip w1;
+    public AudioClip die;
+    public AudioClip undo;
+    public AudioClip reset;
+    public AudioClip nlevel;
+    public AudioClip win;
+
+
+    private bool playonce;
+
     //References
     [SerializeField] Animator transitionAnim; //The black screen animator
 
     private void Start()
     {
         curLevel = 1;
+        
+        src.Play();
+    }
+
+    public void WalkingSound()
+    {
+        src2.PlayOneShot(w1, 1f);
+    }
+
+    public void NewLevelSound()
+    {
+        src2.PlayOneShot(nlevel, 1f);
+    }
+
+    public void WinSound()
+    {
+        src2.PlayOneShot(win, 1f);
+    }
+
+    public void ResetSound()
+    {
+        src2.PlayOneShot(reset, 1f);
+    }
+
+    public void UndoSound()
+    {
+        src2.PlayOneShot(undo, 0.7f);
+    }
+
+    public void DieSound()
+    {
+        if (playonce)
+        {
+            src2.PlayOneShot(die, 1f);
+        }
+
+        playonce = false;
     }
 
     private void Update()
     {
-
+        playonce = true;
         if (Input.GetKeyDown(KeyCode.K))
         {
             LoadNextLevel();
+
         }
 
     }
@@ -54,14 +105,16 @@ public class LevelManager : MonoSingleton<LevelManager>
         CommonUtils.InvokeAction(1f, () =>
         {
             curLevel = level;
-
-            SceneManager.LoadScene($"Level{level}"); //Actually load the level
+            SceneManager.LoadScene(curLevel);
+            
+            //SceneManager.LoadScene($"Level{level}"); 
 
             //Turn off the black screen after the scene is loaded
             CommonUtils.InvokeAction(1f, () =>
             {
                 SetTransition(false);
             });
+            
         });
     }
 
