@@ -221,6 +221,9 @@ public class BabaObject : GridItem
             case BlockAppearance.Death:
                 myren.sprite = refr.Death;
                 break;
+            case BlockAppearance.Bush:
+                myren.sprite = refr.Bush;
+                break;
 
         }
     }
@@ -245,6 +248,7 @@ public enum BlockAppearance
     Death,
     Flag,
     Rock,
+    Bush,
 
 }
 
